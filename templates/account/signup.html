@@ -80,20 +80,28 @@
                 </div>
               </div>
               <div class="row m-b-20">
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <a
-                    href="#!"
+                    href="{% url 'social:begin' 'facebook' %}"
                     class="btn btn-facebook m-b-20 btn-block waves-effect waves-light"
                     ><i class="icofont icofont-social-facebook"></i
                     >facebook</a
                   >
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <a
-                    href="#!"
+                    href="{% url 'social:begin' 'twitter' %}"
                     class="btn btn-twitter m-b-0 btn-block waves-effect waves-light"
                     ><i class="icofont icofont-social-twitter"></i
                     >twitter</a
+                  >
+                </div>
+                <div class="col-md-4">
+                  <a
+                    href="{% url 'social:begin' 'github' %}"
+                    class="btn btn-secondary m-b-0 btn-block waves-effect waves-light"
+                    ><i class="fa fa-github"></i
+                    >github</a
                   >
                 </div>
               </div>

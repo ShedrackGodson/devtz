@@ -81,20 +81,28 @@
                 </div>
               </div>
               <div class="row m-b-20">
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <a
-                    href="#!"
+                    href="{% url 'social:begin' 'facebook' %}"
                     class="btn btn-facebook m-b-20 btn-block waves-effect waves-light"
                     ><i class="icofont icofont-social-facebook"></i
                     >facebook</a
                   >
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <a
-                    href="#!"
+                    href="{% url 'social:begin' 'twitter' %}"
                     class="btn btn-twitter m-b-0 btn-block waves-effect waves-light"
                     ><i class="icofont icofont-social-twitter"></i
                     >twitter</a
+                  >
+                </div>
+                <div class="col-md-4">
+                  <a
+                    href="{% url 'social:begin' 'github' %}"
+                    class="btn btn-secondary m-b-0 btn-block waves-effect waves-light"
+                    ><i class="fa fa-github"></i
+                    >github</a
                   >
                 </div>
               </div>
@@ -104,18 +112,7 @@
               
               <div class="form-group form-primary">
                 {{form.as_p}}
-                <!-- <span class="form-bar"></span>
-                <label class="float-label">Username</label> -->
               </div>
-              <!-- <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group form-primary">
-                    {{form.password}}
-                    <span class="form-bar"></span>
-                    <label class="float-label">Password</label>
-                  </div>
-                </div>
-              </div> -->
               {% if redirect_field_value %}
               <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
               {% endif %}
@@ -123,18 +120,6 @@
                 <div class="col-md-12">
                   <div class="checkbox-fade fade-in-primary">
                     <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-                    <!-- <label>
-                      <input required type="checkbox" name="agree" />
-                      <span class="cr"
-                        ><i
-                          class="cr-icon icofont icofont-ui-check txt-primary"
-                        ></i
-                      ></span>
-                      <span class="text-inverse"
-                        >I read and accept
-                        <a href="#">Terms &amp; Conditions.</a></span
-                      >
-                    </label> -->
                   </div>
                   <div class="checkbox-fade fade-in-primary float-right">
                     <a class="button secondaryAction" href="{% url 'account_signup' %}">{% trans "Create an account?" %}</a>

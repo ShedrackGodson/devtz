@@ -16,25 +16,30 @@ ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
-INSTALLED_APPS = [
+DEFAULT_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
-
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-
-    'allauth.socialaccount.providers.twitter',
-    'allauth.socialaccount.providers.facebook',
-
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # custom apps
+]
+
+THIRD_PARTY_APPS = [
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.twitter',
+    'allauth.socialaccount.providers.facebook',
+    'social_django',
+]
+
+CUSTOM_APPS = [
     'devs.apps.DevsConfig',
 ]
+
+INSTALLED_APPS = THIRD_PARTY_APPS + CUSTOM_APPS + DEFAULT_APPS
 
 SITE_ID = 1
 
@@ -64,6 +69,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'devtz.urls'
@@ -79,6 +86,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -160,14 +170,32 @@ MESSAGE_TAGS = {
 }
 
 AUTHENTICATION_BACKENDS = [
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.facebook.FacebookOAuth2',
+
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-ACCOUNT_EMAIL_REQUIRED=True
+ACCOUNT_EMAIL_REQUIRED = True
 
-ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS=3
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
 
-ACCOUNT_EMAIL_VERIFICATION=True
+ACCOUNT_EMAIL_VERIFICATION = True
 
+# This will print email to the console
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Facebook
+SOCIAL_AUTH_FACEBOOK_KEY = '152004136755226'
+SOCIAL_AUTH_FACEBOOK_SECRET = '3f0014317aef5f8dad7948d4a5bc1258'
+
+# Twitter
+SOCIAL_AUTH_TWITTER_KEY = '5vmeb0RsZLQE2Sy8Wr9tI6MFQ'
+SOCIAL_AUTH_TWITTER_SECRET = 'D55BfmxvJUVwId25OPzu5bocXxvuB4ePtRGakR2h7AtfTAJge4'
+SOCIAL_AUTH_BEARIER_TOKEN = 'AAAAAAAAAAAAAAAAAAAAAA%2FuMwEAAAAAZ0ftv5BQ8RsLPWOtkSCrRyRHlHY%3DGYi5IZRKBsUHVXTvuoCfCN0bCyeRfw2QLYQFWvlYOQuY70noIG'
+
+# Github
+SOCIAL_AUTH_GITHUB_KEY = 'd48570bb143e58a4702f'
+SOCIAL_AUTH_GITHUB_SECRET = '88540ecb5ff0d10edbe0d4dc52bde3007a4743fc'
