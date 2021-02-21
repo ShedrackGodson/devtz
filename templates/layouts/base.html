@@ -161,7 +161,7 @@
                       data-dropdown-out="fadeOut"
                     >
                       <li>
-                        <a href="#!">
+                        <a href="{% url 'settings' %}">
                           <i class="feather icon-settings"></i> Settings
                         </a>
                       </li>
@@ -176,12 +176,7 @@
                         </a>
                       </li>
                       <li>
-                        <a href="auth-lock-screen.html">
-                          <i class="feather icon-lock"></i> Lock Screen
-                        </a>
-                      </li>
-                      <li>
-                        <a href="auth-sign-in-social.html">
+                        <a href="{% url 'account_logout' %}">
                           <i class="feather icon-log-out"></i> Logout
                         </a>
                       </li>

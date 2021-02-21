@@ -1,12 +1,12 @@
 from django.urls import path
 from devs.views import (
-    index, login, create_dev
+    index, settings, password
 )
 
 
 urlpatterns = [
     path("", index, name="home"),
-    # path("login/", login, name="login"),
-    # path("create_dev/", create_dev, name="create_dev"),
+    path('settings/', settings, name='settings'),
+    path('settings/password/', password, name='password'),
 ]
 
