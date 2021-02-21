@@ -191,8 +191,9 @@
               </ul>
               {% else %}
               <ul class="nav-right">
-                <div style="margin-top: 20px;">
-                  <a href="{% url 'login' %}">Login</a> / <a href="">Signup</a>
+                <div style="margin-top: 20px">
+                  <a href="{% url 'account_login' %}">Login</a> /
+                  <a href="{% url 'account_signup' %}">Signup</a>
                 </div>
               </ul>
               {% endif %}
@@ -403,14 +404,12 @@
 
         <div class="pcoded-main-container">
           <div class="pcoded-wrapper">
-            {% block content %}
-
-            {% endblock content %}
+            {% block content %} {% endblock content %}
           </div>
         </div>
       </div>
     </div>
-    <footer style="text-align: center;">
+    <footer style="text-align: center">
       <span>&copy; <i id="current_year_home">2021</i> DevTz</span>
     </footer>
     {% include 'layouts/scripts.html' %}

@@ -1,3 +1,4 @@
 from django.contrib import admin
+from devs.models import Dev
 
-# Register your models here.
+admin.site.register(Dev)

@@ -1,0 +1,34 @@
+
+<!-- {% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{message.tags}} icons-alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <i class="icofont icofont-close-line-circled"></i>
+    </button>
+    <p><strong>{{message}}</strong></p>
+</div>
+{% endfor %}
+{% endif %} -->
+
+
+    
+{% if messages %}
+{% for message in messages %}
+    <div id="message_popup" style="width: 96%;" class="alert {{ message.tags }} alert-dismissible ml-2 fade show" role="alert">
+    {% if message.tags == 'alert-danger' or message.tags == 'alert-info' %}
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span>
+    {% elif message.tags == 'alert-success' %}
+    <span class="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span>
+    <span class="sr-only">Success:</span>
+    {% elif message.tags == 'alert-warning' %}
+    <span class="glyphicon glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+    <span class="sr-only">Warning:</span>
+    {% endif %}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <i class="icofont icofont-close-line-circled"></i>
+    </button>
+    {{ message }}
+    </div>
+{% endfor %}
+{% endif %}

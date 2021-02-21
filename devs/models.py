@@ -22,5 +22,5 @@ class Dev(AbstractUser):
 
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['city', 'mobile_phone','username']
+    REQUIRED_FIELDS = ['city', 'phone','username']
 

@@ -19,6 +19,15 @@ ALLOWED_HOSTS = ["*"]
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    'allauth.socialaccount.providers.twitter',
+    'allauth.socialaccount.providers.facebook',
+
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -26,6 +35,26 @@ INSTALLED_APPS = [
     # custom apps
     'devs.apps.DevsConfig',
 ]
+
+SITE_ID = 1
+
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'APP': {
+            'client_id': '123',
+            'secret': '456',
+            'key': ''
+        }
+    },
+    'twitter': {
+        'APP': {
+            'client_id': '123',
+            'secret': '457',
+            'key': ''
+        }
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -103,7 +132,7 @@ USE_TZ = True
 
 AUTH_USER_MODEL = "devs.Dev"
 
-LOGIN_REDIRECT_URL = "login"
+# LOGIN_REDIRECT_URL = "login"
 
 LOGOUT_REDIRECT_URL = 'home'
 
@@ -129,3 +158,16 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+ACCOUNT_EMAIL_REQUIRED=True
+
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS=3
+
+ACCOUNT_EMAIL_VERIFICATION=True
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
