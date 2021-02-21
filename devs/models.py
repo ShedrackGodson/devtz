@@ -4,6 +4,7 @@ from django.db import models
 
 class Dev(AbstractUser):
     email = models.EmailField(('email address'), blank=True, unique=True)
+    city = models.CharField(max_length=255, null=True, blank=True)
     profile_image = models.ImageField(upload_to="devs/", null=True, blank=True)
     website_link = models.CharField(max_length=255, null=True, blank=True)
     phone = models.CharField(max_length=20, null=True, blank=True)

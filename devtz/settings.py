@@ -103,9 +103,9 @@ USE_TZ = True
 
 AUTH_USER_MODEL = "devs.Dev"
 
-LOGIN_REDIRECT_URL = "showLoginPage"
+LOGIN_REDIRECT_URL = "login"
 
-LOGOUT_REDIRECT_URL = 'showLoginPage'
+LOGOUT_REDIRECT_URL = 'home'
 
 
 STATIC_URL = '/static/'

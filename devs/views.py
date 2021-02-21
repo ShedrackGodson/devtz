@@ -7,7 +7,7 @@ def index(request):
     return render(request, "devs/index.html", context)
 
 
-def index(request):
+def login(request):
     context = dict()
 
-    return render(request, "devs/index.html", context)
+    return render(request, "devs/login.html", context)

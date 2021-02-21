@@ -1,1 +1,45 @@
 {% extends 'layouts/base.html' %}
+
+{% block content %}
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+      <div class="main-body">
+        <div class="page-wrapper">
+          <div class="page-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h5>HTML Markup</h5>
+                  </div>
+                  <div class="card-block">
+                    <p>
+                      Use the following code to use
+                      <strong
+                        >Horizontal Static Layout with Icon</strong
+                      >
+                      in horizontal.
+                    </p>
+                    <h6 class="m-t-20 f-w-600">Usage:</h6>
+                    <pre>                                                        <code class="language-markup">
+                                                  $( document ).ready(function() {
+                                                      $( "#pcoded" ).pcodedmenu({
+                                                          themelayout: 'horizontal',
+                                                          FixedNavbarPosition: false,
+                                                          FixedHeaderPosition: false,
+                                                      });
+                                                  });
+                                              </code>
+                                          </pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="styleSelector"></div>
+    </div>
+  </div>
+  {% endblock %}
+  
