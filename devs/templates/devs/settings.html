@@ -1,6 +1,7 @@
 {% extends 'layouts/base.html' %} {% block content %}
 <div class="pcoded-content">
-  <div class="pcoded-inner-content">
+    <div class="pcoded-inner-content">
+      {% include 'layouts/messages.html' %}
     <div class="main-body">
       <div class="page-wrapper">
         <div class="page-body">
@@ -54,7 +55,7 @@
                           <a
                             class="nav-link"
                             data-toggle="tab"
-                            href="#settings5"
+                            href="#settings6"
                             role="tab"
                             aria-selected="false"
                             >Edit Profile</a
@@ -80,21 +81,118 @@
                           id="home5"
                           role="tabpanel"
                         >
-                          <div class="row">
+                        <!-- Emails -->
+                          <div class="row" style="width: 100%">
                             <div class="col-md-12">
                               <div class="card">
                                 <div class="card-header">
-                                  <h5>Owl Carousel Style 2</h5>
+                                  <h5>Emails</h5>
                                 </div>
                                 <div class="card-block col-md-12">
-                                  
+                                  {% for email in request.user.emailaddress_set.all %}
+                                  <div class="">
+                                    <label class="control-label">
+                                      {% if email.primary %} Primary Email: {% else %} Secondary Email: 
+                                      {% endif %}
+                                    </label>
+                                    <div
+                                      class="primary-email col-sm-8 col-md-7 col-lg-5"
+                                    >
+                                      <span class="primary-email-value"
+                                        >{{email}}</span
+                                      >
+                                      {% if email.primary %}
+                                      <span
+                                        class="label label-primary m-left-xs-5"
+                                        >primary</span
+                                      >
+                                      {% else %}
+                                      <span
+                                        class="label label-secondary m-left-xs-5"
+                                        >secondary</span
+                                      >
+                                      {% endif %}
+                                      <a
+                                        href=""
+                                        title=""
+                                        class="primary-email-change text-muted m-left-xs-5 tip"
+                                        data-original-title="Change your primary email"
+                                        ><i class="fa fa-edit"></i
+                                      ></a>
+                                    </div>
+                                  </div> <br>
+                                  {% endfor %}
+                                  <p
+                                    class="m-0 hidden"
+                                    style="color: #fff; cursor: default"
+                                  >
+                                    2.Cras consequat in enim ut efficitur. Nulla
+                                    posuere elit quis auctor interdum praesent
+                                    sit amet nulla vel enim amet. Donec
+                                    convallis tellus neque, et imperdiet felis
+                                    amet.
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Change password -->
+                          <div class="row" style="width: 100%">
+                            <div class="col-md-12">
+                              <div class="card">
+                                <div class="card-header">
+                                  <h5>Change Password</h5>
+                                </div>
+                                <div class="card-block col-md-12">
+                                  <div class="">
+                                    <form method="POST" action="{% url 'change_password' request.user.id %}" class="form-horizontal change-password m-top-xs-5 m-bottom-xs-5">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                          <label class="col-sm-4 col-md-3 col-lg-2 control-label">Current:</label>
+                                          <div class="col-sm-8 col-md-7 col-lg-5">
+                                            <input required class="form-control" type="password" name="current_password" placeholder="Your Current Password" maxlength="200" autocomplete="off">
+                                            <div id="flash-current_password" class="text-danger"></div>
+                                          </div>
+                                        </div>
+                                        <div class="form-group">
+                                          <label class="col-sm-4 col-md-3 col-lg-2 control-label">New:</label>
+                                          <div class="col-sm-8 col-md-7 col-lg-5">
+                                            <input required class="form-control" type="password" name="new_password" placeholder="Your New Password" maxlength="200" autocomplete="off" aria-autocomplete="list">
+                                            <div id="flash-new_password" class="text-danger"></div>
+                                          </div>
+                                        </div>
+                                        <div class="form-group">
+                                          <label class="col-sm-4 col-md-3 col-lg-2 control-label">Again:</label>
+                                          <div class="col-sm-8 col-md-7 col-lg-5">
+                                            <input required class="form-control" type="password" name="new_password2" placeholder="Repeat Your Password" maxlength="200" autocomplete="off">
+                                            <div id="flash-new_password2" class="text-danger"></div>
+                                          </div>
+                                        </div>
+                                        <div class="form-group p-top-xs-5 m-bottom-xs-0">
+                                          <div class="col-sm-4 col-md-3 col-lg-3 col-sm-offset-4 col-md-offset-3 col-lg-offset-2">
+                                            <button type="submit" class="btn btn-primary" data-loading-text="Updating…">Change  password</button>
+                                          </div>
+                                        </div>
+                                      </form>
+                                  </div> <br>
+                                  <p
+                                    class="m-0 hidden"
+                                    style="color: #fff; cursor: default"
+                                  >
+                                    2.Cras consequat in enim ut efficitur. Nulla
+                                    posuere elit quis auctor interdum praesent
+                                    sit amet nulla vel enim amet. Donec
+                                    convallis tellus neque, et imperdiet felis
+                                    amet.
+                                  </p>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
                         <div class="tab-pane" id="profile5" role="tabpanel">
-                          <p class="m-0">
+                          <p class="m-0 hidden">
                             2.Cras consequat in enim ut efficitur. Nulla posuere
                             elit quis auctor interdum praesent sit amet nulla
                             vel enim amet. Donec convallis tellus neque, et
@@ -102,7 +200,7 @@
                           </p>
                         </div>
                         <div class="tab-pane" id="messages5" role="tabpanel">
-                          <p class="m-0">
+                          <p class="m-0 hidden">
                             3. This is Photoshop's version of Lorem IpThis is
                             Photoshop's version of Lorem Ipsum. Proin gravida
                             nibh vel velit auctor aliquet. Aenean sollicitudin,
@@ -114,7 +212,171 @@
                           </p>
                         </div>
                         <div class="tab-pane" id="settings5" role="tabpanel">
-                          <p class="m-0">
+                          {% if github_login %}
+                          <div class="col-xs-12">
+                            <label
+                              class="col-sm-4 col-md-3 col-lg-2 control-label"
+                              >GitHub Login:
+                              <i
+                                class="fa fa-question-circle tip"
+                                title=""
+                                data-original-title="Your GitHub integration can be used to login."
+                              ></i
+                            ></label>
+                            <div class="">
+                              <div class="block-hover-parent">
+                                <div class="ml-3">
+                                  Connected as:
+                                  <span class="text-muted"
+                                    ><a
+                                      href="https://github.com/{{ github_login.extra_data.login }}/"
+                                      target="_blank"
+                                      >{{ github_login.extra_data.login }}</a
+                                    ></span
+                                  >
+                                  {% if can_disconnect %}
+                                  <form
+                                    method="post"
+                                    action="{% url 'social:disconnect' 'github' %}"
+                                  >
+                                    {% csrf_token %}
+                                    <button type="submit">
+                                      Disconnect from GitHub
+                                    </button>
+                                  </form>
+                                  {% else %}
+                                  <button type="button" disabled>
+                                    Disconnect from GitHub
+                                  </button>
+                                  <p style="color: red">
+                                    You must
+                                    <a href="{% url 'password' %}"
+                                      >define a password</a
+                                    >
+                                    for your account before disconnecting from
+                                    Github.
+                                  </p>
+                                  {% endif %}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          {% else %}
+                          <a href="{% url 'social:begin' 'github' %}"
+                            >Connect to GitHub</a
+                          >
+                          {% endif %} {% if facebook_login %}
+                          <div class="col-xs-12">
+                            <label
+                              class="col-sm-4 col-md-3 col-lg-2 control-label"
+                              >Facebook Login:
+                              <i
+                                class="fa fa-question-circle tip"
+                                title=""
+                                data-original-title="Your GitHub integration can be used to login."
+                              ></i
+                            ></label>
+                            <div class="">
+                              <div class="block-hover-parent">
+                                <div class="ml-3">
+                                  Connected as:
+                                  <span class="text-muted"
+                                    ><a
+                                      href="https://facebook.com/{{ facebook_login.extra_data.id }}/"
+                                      target="_blank"
+                                    >
+                                      {{ facebook_login.extra_data.id }}
+                                    </a></span
+                                  >
+                                  {% if can_disconnect %}
+                                  <form
+                                    method="post"
+                                    action="{% url 'social:disconnect' 'facebook' %}"
+                                  >
+                                    {% csrf_token %}
+                                    <button type="submit">
+                                      Disconnect from Facebook
+                                    </button>
+                                  </form>
+                                  {% else %}
+                                  <button type="button" disabled>
+                                    Disconnect from Facebook
+                                  </button>
+                                  <p style="color: red">
+                                    You must
+                                    <a href="{% url 'password' %}"
+                                      >define a password</a
+                                    >
+                                    for your account before disconnecting from
+                                    Facebook.
+                                  </p>
+                                  {% endif %}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          {% else %} <br />
+                          <a href="{% url 'social:begin' 'facebook' %}"
+                            >Connect to Facebook</a
+                          >
+                          {% endif %} {% if twitter_login %}
+                          <div class="col-xs-12">
+                            <label
+                              class="col-sm-4 col-md-3 col-lg-2 control-label"
+                              >Twitter Login:
+                              <i
+                                class="fa fa-question-circle tip"
+                                title=""
+                                data-original-title="Your GitHub integration can be used to login."
+                              ></i
+                            ></label>
+                            <div class="">
+                              <div class="block-hover-parent">
+                                <div class="ml-3">
+                                  Connected as:
+                                  <span class="text-muted"
+                                    ><a
+                                      href="https://twitter.com/{{ twitter_login.extra_data.access_token.screen_name }}/"
+                                      target="_blank"
+                                    >
+                                      @{{
+                                      twitter_login.extra_data.access_token.screen_name
+                                      }}
+                                    </a></span
+                                  >
+                                  {% if can_disconnect %}
+                                  <form
+                                    method="post"
+                                    action="{% url 'social:disconnect' 'twitter' %}"
+                                  >
+                                    {% csrf_token %}
+                                    <button type="submit">
+                                      Disconnect from Twitter
+                                    </button>
+                                  </form>
+                                  {% else %}
+                                  <button type="button" disabled>
+                                    Disconnect from Twitter
+                                  </button>
+                                  <p style="color: red">
+                                    You must
+                                    <a href="{% url 'password' %}"
+                                      >define a password</a
+                                    >
+                                    for your account before disconnecting from
+                                    Twitter.
+                                  </p>
+                                  {% endif %}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          {% else %} <br />
+                          <a href="{% url 'social:begin' 'twitter' %}"
+                            >Connect to Twitter</a
+                          >
+                          {% endif %}
+                          <p class="m-0 hidden" style="color: #fff; cursor: default">
                             4.Cras consequat in enim ut efficitur. Nulla posuere
                             elit quis auctor interdum praesent sit amet nulla
                             vel enim amet. Donec convallis tellus neque, et
