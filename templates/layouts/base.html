@@ -9,12 +9,12 @@
       <div class="loader-bar"></div>
     </div>
 
-    <div id="pcoded" class="pcoded">
+    <div  id="pcoded" class="pcoded">
       <div class="pcoded-overlay-box"></div>
       <div class="pcoded-container navbar-wrapper">
-        <nav class="navbar header-navbar pcoded-header">
+        <nav style="background-color: #1D4354;" class="navbar header-navbar pcoded-header">
           <div class="navbar-wrapper">
-            <div class="navbar-logo">
+            <div style="background-color: #1D4354;" class="navbar-logo">
               <a href="">
                 <img
                   class="img-fluid"
@@ -40,7 +40,7 @@
                       <input
                         type="text"
                         class="form-control"
-                        placeholder="Enter Keyword"
+                        placeholder="Email, username or stacks"
                       />
                       <span class="input-group-append search-btn">
                         <i class="feather icon-search input-group-text"></i>
@@ -64,7 +64,7 @@
                 <li class="header-notification">
                   <div class="dropdown-primary dropdown">
                     <div class="dropdown-toggle" data-toggle="dropdown">
-                      <i class="feather icon-bell"></i>
+                      <i class="icon-bell"></i>
                       <span class="badge bg-c-red">5</span>
                     </div>
                     <ul
@@ -147,11 +147,19 @@
                 <li class="user-profile header-notification">
                   <div class="dropdown-primary dropdown">
                     <div class="dropdown-toggle" data-toggle="dropdown">
+                      {% if request.user.profile_image %}
                       <img
-                        src="{% static 'images/avatar-4.jpg' %}"
+                        src="{{request.user.profile_image.url}}"
                         class="img-radius"
                         alt="User-Profile-Image"
                       />
+                      {% else %}
+                      <img
+                        src="{% static 'images/user.png' %}"
+                        class="img-radius"
+                        alt="User-Profile-Image"
+                      />
+                      {% endif %}
                       <span>John Doe</span>
                       <i class="feather icon-chevron-down"></i>
                     </div>
@@ -161,28 +169,23 @@
                       data-dropdown-out="fadeOut"
                     >
                       <li>
-                        <a href="#!">
-                          <i class="feather icon-settings"></i> Settings
+                        <a href="{% url 'settings' %}">
+                          <i class="icon icon-settings"></i> Settings
                         </a>
                       </li>
                       <li>
-                        <a href="#">
-                          <i class="feather icon-user"></i> Profile
+                        <a href="{% url 'profile' request.user.username %}">
+                          <i class="icon-user"></i> Profile
                         </a>
                       </li>
                       <li>
                         <a href="email-inbox.html">
-                          <i class="feather icon-mail"></i> My Messages
+                          <i class="ti-comments"></i> My Messages
                         </a>
                       </li>
                       <li>
-                        <a href="auth-lock-screen.html">
-                          <i class="feather icon-lock"></i> Lock Screen
-                        </a>
-                      </li>
-                      <li>
-                        <a href="auth-sign-in-social.html">
-                          <i class="feather icon-log-out"></i> Logout
+                        <a href="{% url 'account_logout' %}">
+                          <i class="icon icon-logout"></i> Logout
                         </a>
                       </li>
                     </ul>
@@ -191,16 +194,10 @@
               </ul>
               {% else %}
               <ul class="nav-right">
-                <li class="header-notification">
-                  <div class="dropdown-primary dropdown">
-                    <div
-                      class="displayChatbx dropdown-toggl"
-                      data-toggle="dropdown"
-                    >
-                      <a href="">Login</a> / <a href="">Signup</a>
-                    </div>
-                  </div>
-                </li>
+                <div style="margin-top: 20px">
+                  <a href="{% url 'account_login' %}">Login</a> /
+                  <a href="{% url 'account_signup' %}">Signup</a>
+                </div>
               </ul>
               {% endif %}
             </div>
@@ -410,52 +407,13 @@
 
         <div class="pcoded-main-container">
           <div class="pcoded-wrapper">
-            <div class="pcoded-content">
-              <div class="pcoded-inner-content">
-                <div class="main-body">
-                  <div class="page-wrapper">
-                    <div class="page-body">
-                      <div class="row">
-                        <div class="col-lg-12">
-                          <div class="card">
-                            <div class="card-header">
-                              <h5>HTML Markup</h5>
-                            </div>
-                            <div class="card-block">
-                              <p>
-                                Use the following code to use
-                                <strong
-                                  >Horizontal Static Layout with Icon</strong
-                                >
-                                in horizontal.
-                              </p>
-                              <h6 class="m-t-20 f-w-600">Usage:</h6>
-                              <pre>                                                        <code class="language-markup">
-                                                            $( document ).ready(function() {
-                                                                $( "#pcoded" ).pcodedmenu({
-                                                                    themelayout: 'horizontal',
-                                                                    FixedNavbarPosition: false,
-                                                                    FixedHeaderPosition: false,
-                                                                });
-                                                            });
-                                                        </code>
-                                                    </pre>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div id="styleSelector"></div>
-              </div>
-            </div>
+            {% block content %} {% endblock content %}
           </div>
         </div>
       </div>
     </div>
-    <footer style="text-align: center;">
-      <span>&copy; <i id="current_year"></i> DevTz</span>
+    <footer style="text-align: center">
+      <span title="Platform for Tanzanian Developers.">&copy; <i id="current_year_home">2021</i> DevTz</span>
     </footer>
     {% include 'layouts/scripts.html' %}
   </body>
