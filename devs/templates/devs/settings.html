@@ -22,7 +22,7 @@
                           <ul class="nav navigation">
                             <a href="{% url 'settings' %}">
                               {% if request.path == '/settings/' %}
-                              <li style="background-color: #42a5f5;color: #fff;" class="navigation-header">
+                              <li style="background-color: #1D4354;color: #fff;" class="navigation-header">
                                 <i class="icon-history pull-right"></i>
                                 <b>Account</b>
                               </li>
@@ -30,24 +30,11 @@
                               <li class="navigation-header">
                                 <i class="icon-history pull-right"></i>
                                 <b>Account</b>
-                              </li>
-                              {% endif %}
-                            </a>
-                            <a href="{% url 'stacks' %}">
-                              {% if request.path == '/settings/stacks/' %}
-                              <li style="background-color: #42a5f5;color: #fff;" class="navigation-header">
-                                <i class="icon-history pull-right"></i>
-                                <b>Stacks</b>
-                              </li>
-                              {% else %}
-                              <li class="navigation-header">
-                                <i class="icon-history pull-right"></i>
-                                <b>Stacks</b>
                               </li>
                               {% endif %}
                             </a>
                             {% if request.path == '/settings/preferences/' %}
-                            <li style="background-color: #42a5f5;" class="waves-effect waves-light">
+                            <li style="background-color: #1D4354;" class="waves-effect waves-light">
                               <a style="color: #fff;" href="{% url 'preferences' %}"
                                 >Preferences<span
                                   class="text-muted text-regular pull-right"
@@ -64,7 +51,7 @@
                             </li>
                             {% endif %}
                             {% if request.path == '/settings/email-notifications/' %}
-                            <li style="background-color: #42a5f5;" class="waves-effect waves-light">
+                            <li style="background-color: #1D4354;" class="waves-effect waves-light">
                               <a style="color: #fff;" href="{% url 'email_notifications' %}"
                                 >Email Notifications
                                 <span
@@ -91,7 +78,7 @@
                               >
                             </li>
                             {% if request.path == '/settings/social-auths/' %}
-                            <li style="background-color: #42a5f5;" class="waves-effect waves-light">
+                            <li style="background-color: #1D4354;" class="waves-effect waves-light">
                               <a style="color: #fff;" href="{% url 'social_auths' %}"
                                 ><i
                                   class="fa fa-cloud m-r-5"
@@ -758,91 +745,7 @@
                                             </div>
                                             <div class="col-xs-12 center-xs col-sm-7 col-md-8 col-lg-9 left-sm">
                                               <span class="mailing_list-description text-muted">
-                                                New features and product updates.
-                                              </span>
-                                            </div>
-                                          </div>
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <td>
-                                          <div class="row">
-                                            <div class="col-xs-12 center-xs col-sm-5 col-md-4 col-lg-3 left-sm">
-                                              {% if request.user.emailpreference.messages %}
-                                              <input type="checkbox" class="toggle" checked name="messages"/>
-                                              {% else %}
-                                              <input type="checkbox" class="toggle" name="messages"/>
-                                              {% endif %}
-                                              <span class="mailing_list-name p-left-md-10">Messages</span>
-                                            </div>
-                                            <div class="col-xs-12 center-xs col-sm-7 col-md-8 col-lg-9 left-sm">
-                                              <span class="mailing_list-description text-muted">
-                                                Email notification whenever a Dev send a message
-                                              </span>
-                                            </div>
-                                          </div>
-                                        </td>
-                                      </tr>
-                                  </table>
-                                  <button type="submit" class="btn btn-primary">Save</button>
-                                </form>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {% elif request.path == '/settings/stacks/' %}
-              <div class="col-lg-8 col-xl-9">
-                <div class="col-sm-12">
-                  <div class="card" id="v_1_2 active show">
-                    <div class="card-header">
-                      <h5><i class="fa fa-cubes"></i> Languages, Frameworks &amp; Tools</h5>
-                    </div>
-                    <div class="card-block">
-                      <!-- Stacks -->
-                      <div class="row" style="width: 100%">
-                        <div class="col-md-12">
-                          <div class="card">
-                            <div class="card-block col-md-12">
-                              <form method="POST" action="{% url 'save_email_preference' request.user.id %}">
-                                  {% csrf_token %}
-                                  <table class="table table-hover table-no-heading m-bottom-xs-0">
-                                      <tr>
-                                        <td>
-                                          <div class="row">
-                                            <div class="col-xs-12 center-xs col-sm-5 col-md-4 col-lg-3 left-sm">
-                                              {% if request.user.emailpreference.logins %}
-                                              <input type="checkbox" class="toggle" name="logins" checked/>
-                                              {% else %}
-                                              <input type="checkbox" class="toggle" name="logins"/>
-                                              {% endif %}
-                                              <span class="mailing_list-name p-left-md-10">Logins</span>
-                                            </div>
-                                            <div class="col-xs-12 center-xs col-sm-7 col-md-8 col-lg-9 left-sm">
-                                              <span class="mailing_list-description text-muted">
-                                                Email notification whenever you login, for peace of mind.
-                                              </span>
-                                            </div>
-                                          </div>
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <td>
-                                          <div class="row">
-                                            <div class="col-xs-12 center-xs col-sm-5 col-md-4 col-lg-3 left-sm">
-                                              {% if request.user.emailpreference.updates %}
-                                              <input type="checkbox" class="toggle" checked name="updates"/>
-                                              {% else %}
-                                              <input type="checkbox" class="toggle" name="updates"/>
-                                              {% endif %}
-                                              <span class="mailing_list-name p-left-md-10">Updates</span>
-                                            </div>
-                                            <div class="col-xs-12 center-xs col-sm-7 col-md-8 col-lg-9 left-sm">
-                                              <span class="mailing_list-description text-muted">
-                                                New features and product updates.
+                                                New features and blog updates.
                                               </span>
                                             </div>
                                           </div>

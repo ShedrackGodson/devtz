@@ -1,4 +1,4 @@
-{% extends 'layouts/base.html' %} {% load humanize %} {% block content %} 
+{% extends 'layouts/base.html' %} {% load humanize %} {% load static %} {% block content %} 
 {% block custom_css %}
 <style>
   #avatar {
@@ -33,6 +33,24 @@
     #profile-settings {
       font-size: 12px;
     }
+    .ti-briefcase, .icon-graduation {
+      margin-left: -30%;
+      font-size: 70px;
+      color: #1D4354;
+    }
+  }
+  @media only screen and (max-width: 640px){
+    .username-container {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .image-container {
+      justify-content: center;
+      margin-left: 20px;
+    }
+    #avatar {
+      margin-left: 20px;
+    }
   }
   @media only screen and (max-width: 575px) {
     .pcoded-content {
@@ -40,10 +58,11 @@
     }
     .image-container {
       justify-content: center;
-      margin-left: 50px;
+      margin-left: 60px;
     }
     .username-container {
       margin-top: 20px;
+      margin-left: -20px;
       text-align: center;
     }
     .profile-settings {
@@ -51,6 +70,11 @@
     }
     #profile-settings {
       font-size: 12px;
+    }
+    #bag, #graduation {
+      margin-left: 40%;
+      font-size: 70px;
+      color: #1D4354;
     }
   }
   /* .profile-container {
@@ -89,6 +113,17 @@
   #skills-modal:hover {
     cursor: default;
   }
+  /* .icon-container {
+    border: 1px solid black;
+    background-color: #1D4354;
+    border-radius: 50%;
+    margin-left: 45%;
+  } */
+  .ti-briefcase, .icon-graduation {
+    margin-left: 45%;
+    font-size: 120px;
+    color: #1D4354;
+  }
 </style>
 {% endblock custom_css %}
 <div class="pcoded-content">
@@ -120,6 +155,20 @@
                             <i class="fa fa-map-marker"></i> Dar Es Salaam,
                             Tanzania – 2:42am local time
                           </p>
+                          {% if not request.user.publicpreference.both_emails %}
+                          <label><i class="ti-email"></i> <a href="mailto:{{request.user.email}}">{{request.user.email}}</a></label>
+                          {% else %}
+                          {% for email in request.user.emailaddress_set.all %}
+                          <label class="mr-2"><i class="ti-email"></i> <a href="mailto:{{email}}">{{email}}</a></label>
+                          {% endfor %}
+                          {% endif %}
+                          {% if request.user.publicpreference.hireable %}
+                          <label class="label ml-3 label-info" title="@{{request.user.username}} is open for work">HIREABLE</label>
+                          {% endif %}
+                          {% if request.user.publicpreference.gender %}
+                          <p><i class="fa fa-transgender"></i> {{request.user.get_gender_display}}</p>
+                          {% endif %}
+                          <label><i class="fa fa-phone"></i> <a href="callto:{{request.user.phone}}">{{request.user.phone}}</a></label>
                         </div>
                       </div>
                     </div>
@@ -194,11 +243,11 @@
                               </button>
                             </div>
                             <p class="mb-0">
-                              <strong class="d-block">Available</strong>
-                              <span>More than 30 hrs/week</span>
+                              {% if request.user.availability.available %}
+                              <button disabled class="btn btn-sm btn-success"><strong class="d-block">OPEN</strong></button>
+                              <span>{{ request.user.availability.get_days_available_display }}</span>
+                              {% endif %}
                             </p>
-                            <!---->
-                            <!---->
                           </div>
                           <div class="mt-3 mb-3">
                             <div class="mb-1">
@@ -213,31 +262,21 @@
                               </h4>
                             </div>
                             <ul class="list-unstyled">
+                              {% for lang in request.user.language_set.all %}
                               <li>
                                 <div>
                                   <strong
                                     class="d-inline-block vertical-align-middle"
-                                    >English:&nbsp;</strong
+                                    >{{lang.language_name.title}}:&nbsp;</strong
                                   ><span
                                     class="d-inline-block vertical-align-middle text-muted"
-                                    >Fluent</span
-                                  ><!---->
+                                    >{{lang.level.title}}</span
+                                  >
                                 </div>
                               </li>
-                              <li>
-                                <div>
-                                  <strong
-                                    class="d-inline-block vertical-align-middle"
-                                    >Swahili:&nbsp;</strong
-                                  ><span
-                                    class="d-inline-block vertical-align-middle text-muted"
-                                    >Native or Bilingual</span
-                                  ><!---->
-                                </div>
-                              </li>
+                              {% endfor %}
                             </ul>
                           </div>
-                          <!---->
                           <div class="mt-3">
                             <div class="mb-1">
                               <h4
@@ -247,34 +286,29 @@
                               >
                                 Education <i class="fa fa-plus-circle"></i>
                               </h4>
-                              <!---->
                             </div>
                             <ul class="list-unstyled">
-                              <li class="d-flex">
+                              {% for education in request.user.education_set.all %}
+                              <li class="d-flex mb-2">
                                 <div>
                                   <h5 role="presentation" class="mb-0">
-                                    Institute of Finance Management
+                                    {{education.institute_name.title}}
                                     <i class="fa fa-pencil ml-2 mr-2"></i>
                                     <i class="fa fa-trash ml-1"></i>
                                   </h5>
                                   <div>
-                                    Bachelor of Science in Information
-                                    Technology, Computer science
+                                    {{education.degree.title}}
                                   </div>
-                                  <div class="text-muted">2018-2021</div>
+                                  <div class="text-muted">
+                                    {{education.date_from}}-{{education.date_to}}
+                                  </div>
                                 </div>
                                 <div class="d-flex">
-                                  <!---->
-                                  <!---->
                                 </div>
                               </li>
-                              <!---->
+                              {% endfor %}
                             </ul>
                           </div>
-                          <!---->
-                          <!---->
-                          <!---->
-                          <!---->
                         </section>
                       </div>
                       <div
@@ -761,6 +795,189 @@
             </div>
           </div>
         </div>
+
+        <div class="page-body mt-3">
+          <div class="row">
+            <div class="col-lg-12 col-xl-12">
+              <div class="col-sm-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h5>Employment history</h5>
+                    <i style="font-size: x-large;" class="float-right fa fa-plus-circle"></i>
+                    <div class="row mt-3">
+                      <div style="align-content: center;align-items: center;width: 100%;" class="mt-3">
+                        {% if not request.user.devemploymenthistory_set.exists %}
+                        <div class="icon-container">
+                          <i id="bag" class="ti-briefcase mb-3"></i>
+                        </div>
+                        <h4 style="text-align: center;margin-top: 30px;">Add employment history to showcase your past work to clients</h4>
+                        {% endif %}
+                        {% for emp in request.user.devemploymenthistory_set.all %}
+                        <div class="ml-3 mb-3">
+                          <div class="mr-3">
+                            <button class="btn btn-default float-right">
+                              <i class="fa fa-trash mr-2"></i>
+                            </button>
+                            <button class="btn btn-default float-right mr-2">
+                              <i class="fa fa-pencil"></i>
+                            </button>
+                          </div>
+                          <h4>Company: {{emp.company_name|safe}}</h4>
+                          <h4>Job Title: {{emp.title|safe}}</h4>
+                          <h5>Location: {{emp.location|safe}}</h5> <br>
+                          <h5>From: {{emp.from_month|safe}},{{emp.from_year|safe}}</h5> <br>
+                          <h5>To: 
+                            {% if emp.currently_working %}
+                            Present
+                            {% else %}
+                            {{emp.to_month|safe}},{{emp.to_year|safe}}
+                            {% endif %}
+                          </h5> <br>
+                          {% if emp.expiration %}
+                          <h5>Expiration Date: {{emp.expiration|date}}</h5>
+                          {% endif %}
+                          <p>
+                            {{emp.description.length}}
+                            {{emp.description|safe|slice:':200'}}<span
+                              id="dotssss{{emp.id}}"
+                              >...</span
+                            ><span id="moreeee{{emp.id}}"
+                              >{{emp.description|safe|slice:'200:'}}</span
+                            >
+                            <a
+                              href="javascript:void"
+                              onclick="myFunction4(`{{emp.id}}`)"
+                              id="myBtnnnn{{emp.id}}"
+                              ><u>more</u></a
+                            >
+                          </p>
+                        </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="page-body mt-3">
+          <div class="row">
+            <div class="col-lg-12 col-xl-12">
+              <div class="col-sm-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h5>Certificates</h5>
+                    <i style="font-size: x-large;" class="float-right fa fa-plus-circle"></i>
+                    <div class="row mt-3">
+                      <div style="align-content: center;align-items: center;width: 100%;" class="mt-3">
+                        {% if not request.user.devcertificates_set.exists %}
+                        <div class="icon-container">
+                          <i id="graduation" class="icon-graduation mb-3"></i>
+                        </div>
+                        <h4 style="text-align: center;margin-top: 30px;">Add certifications to highlight your best skills</h4>
+                        {% endif %}
+                        {% for cert in request.user.devcertificates_set.all %}
+                        <div class="ml-3 mb-3">
+                          <div class="mr-3">
+                            <button class="btn btn-default float-right">
+                              <i class="fa fa-trash mr-2"></i>
+                            </button>
+                            <button class="btn btn-default float-right mr-2">
+                              <i class="fa fa-pencil"></i>
+                            </button>
+                          </div>
+                          <h4>{{cert.certificate_name|safe}}
+                            {% if cert.certificate_id %}
+                            #ID: {{cert.certificate_id}}
+                            {% endif %}
+                          </h4>
+                          <h4>Provider: {{cert.provider|safe}}</h4>
+                          <h5>Issued Date: {{cert.issue_date|date}}</h5> <br>
+                          {% if cert.expiration %}
+                          <h5>Expiration Date: {{cert.expiration|date}}</h5>
+                          {% endif %}
+                          <p>
+                            {{cert.description|safe|slice:':200'}}<span
+                              id="dotsss{{cert.id}}"
+                              >...</span
+                            ><span id="moreee{{cert.id}}"
+                              >{{cert.description|safe|slice:'200:'}}</span
+                            >
+                            <a
+                              href="javascript:void"
+                              onclick="myFunction3(`{{cert.id}}`)"
+                              id="myBtnnn{{cert.id}}"
+                              ><u>more</u></a
+                            >
+                          </p>
+                          {% if cert.certificate_url %}
+                          <a href="{{cert.certificate_url}}" target="_blank">View Certificate</a>
+                          {% endif %}
+                        </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="page-body mt-3">
+          <div class="row">
+            <div class="col-lg-12 col-xl-12">
+              <div class="col-sm-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h5>Other Experiences</h5>
+                    <i style="font-size: x-large;" class="float-right fa fa-plus-circle"></i>
+                    <div class="row mt-3">
+                      <div style="align-content: center;align-items: center;width: 100%;" class="mt-3">
+                        {% if not request.user.otherexperience_set.exists %}
+                        <div class="icon-container">
+                          <i id="graduation" class="icon-graduation mb-3"></i>
+                        </div>
+                        <h4 style="text-align: center;margin-top: 30px;">Add other experiences relating to your profession.</h4>
+                        {% else %}
+                        {% for exp in request.user.otherexperience_set.all %}
+                        <div class="ml-3 mb-3">
+                          <div class="mr-3">
+                            <button class="btn btn-default float-right">
+                              <i class="fa fa-trash mr-2"></i>
+                            </button>
+                            <button class="btn btn-default float-right mr-2">
+                              <i class="fa fa-pencil"></i>
+                            </button>
+                          </div>
+                          <h4>{{exp.subject.title|safe}}</h4>
+                          <p>
+                            {{exp.description|safe|slice:':200'}}<span
+                              id="dotss{{exp.id}}"
+                              >...</span
+                            ><span id="moree{{exp.id}}"
+                              >{{exp.description|safe|slice:'200:'}}</span
+                            >
+                            <a
+                              href="javascript:void"
+                              onclick="myFunction2(`{{exp.id}}`)"
+                              id="myBtnn{{exp.id}}"
+                              ><u>more</u></a
+                            >
+                          </p>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -783,6 +1000,54 @@
       dots.style.display = "none";
       btnText.innerHTML = "less";
       moreText.style.display = "inline";
+    }
+  }
+
+  function myFunction2(id){
+    var dotss = document.getElementById("dotss"+id);
+    var moreeText = document.getElementById("moree"+id);
+    var btnnText = document.getElementById("myBtnn"+id);
+
+    if (dotss.style.display === "none") {
+      dotss.style.display = "inline";
+      btnnText.innerHTML = "more";
+      moreeText.style.display = "none";
+    } else {
+      dotss.style.display = "none";
+      btnnText.innerHTML = "less";
+      moreeText.style.display = "inline";
+    }
+  }
+
+  function myFunction3(id){
+    var dotsss = document.getElementById("dotsss"+id);
+    var moreeeText = document.getElementById("moreee"+id);
+    var btnnnText = document.getElementById("myBtnnn"+id);
+
+    if (dotsss.style.display === "none") {
+      dotsss.style.display = "inline";
+      btnnnText.innerHTML = "more";
+      moreeeText.style.display = "none";
+    } else {
+      dotsss.style.display = "none";
+      btnnnText.innerHTML = "less";
+      moreeeText.style.display = "inline";
+    }
+  }
+
+  function myFunction4(id){
+    var dotssss = document.getElementById("dotssss"+id);
+    var moreeeeText = document.getElementById("moreeee"+id);
+    var btnnnnText = document.getElementById("myBtnnnn"+id);
+
+    if (dotssss.style.display === "none") {
+      dotssss.style.display = "inline";
+      btnnnnText.innerHTML = "more";
+      moreeeeText.style.display = "none";
+    } else {
+      dotssss.style.display = "none";
+      btnnnnText.innerHTML = "less";
+      moreeeeText.style.display = "inline";
     }
   }
 </script>

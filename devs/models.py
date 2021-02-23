@@ -181,7 +181,7 @@ class DevCertificates(models.Model):
     provider = models.CharField(max_length=50)
     description = RichTextField(max_length=255, null=True, blank=True)
     issue_date = models.DateField()
-    expiration = models.DateField()
+    expiration = models.DateField(null=True, blank=True)
     certificate_id = models.CharField(max_length=100,
                                       null=True, blank=True)
     certificate_url = models.CharField(max_length=100,
@@ -203,8 +203,10 @@ class DevEmploymentHistory(models.Model):
     title = models.CharField(max_length=50)
     from_month = models.CharField(max_length=10)
     from_year = models.CharField(max_length=4)
-    to_month = models.CharField(max_length=10, null=True)
-    to_year = models.CharField(max_length=4, null=True)
+    to_month = models.CharField(max_length=10,
+                                null=True, blank=True)
+    to_year = models.CharField(max_length=4,
+                               null=True, blank=True)
     currently_working = models.BooleanField(default=False)
     description = RichTextField(max_length=500, null=True, blank=True)
 
