@@ -166,7 +166,7 @@
                         </a>
                       </li>
                       <li>
-                        <a href="#">
+                        <a href="{% url 'profile' request.user.username %}">
                           <i class="feather icon-user"></i> Profile
                         </a>
                       </li>
@@ -405,7 +405,7 @@
       </div>
     </div>
     <footer style="text-align: center">
-      <span>&copy; <i id="current_year_home">2021</i> DevTz</span>
+      <span title="Platform for Tanzanian Developers.">&copy; <i id="current_year_home">2021</i> DevTz</span>
     </footer>
     {% include 'layouts/scripts.html' %}
   </body>

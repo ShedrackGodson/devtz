@@ -1,217 +1,471 @@
 {% extends 'layouts/base.html' %} {% block content %}
 <div class="pcoded-content">
+  <div class="pcoded-inner-content">
+    {% include 'layouts/messages.html' %}
     <div class="pcoded-inner-content">
-      {% include 'layouts/messages.html' %}
-    <div class="main-body">
-      <div class="page-wrapper">
-        <div class="page-body">
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="card">
-                <div class="card-header">
-                  <h5>Settings</h5>
-                </div>
-                <div class="card-block">
+      <div class="main-body">
+        <div class="page-wrapper">
+          <div class="page-body">
+            <div class="row">
+              <div class="col-lg-4 col-xl-3">
+                <div id="navigation">
                   <div class="row">
-                    <div class="col-lg-12 col-xl-12">
-                      <ul
-                        class="nav nav-tabs md-tabs tabs-left b-none"
-                        role="tablist"
-                      >
-                        <li class="nav-item">
-                          <a
-                            class="nav-link active show"
-                            data-toggle="tab"
-                            href="#home5"
-                            role="tab"
-                            aria-selected="false"
-                            >Account</a
-                          >
-                          <div class="slide"></div>
-                        </li>
-                        <li class="nav-item">
-                          <a
-                            class="nav-link"
-                            data-toggle="tab"
-                            href="#profile5"
-                            role="tab"
-                            aria-selected="true"
-                            >Preferences</a
-                          >
-                          <div class="slide"></div>
-                        </li>
-                        <li class="nav-item">
-                          <a
-                            class="nav-link"
-                            data-toggle="tab"
-                            href="#messages5"
-                            role="tab"
-                            aria-selected="false"
-                            >Email Notifications</a
-                          >
-                          <div class="slide"></div>
-                        </li>
-                        <li class="nav-item">
-                          <a
-                            class="nav-link"
-                            data-toggle="tab"
-                            href="#settings6"
-                            role="tab"
-                            aria-selected="false"
-                            >Edit Profile</a
-                          >
-                          <div class="slide"></div>
-                        </li>
-                        <li class="nav-item">
-                          <a
-                            class="nav-link"
-                            data-toggle="tab"
-                            href="#settings5"
-                            role="tab"
-                            aria-selected="false"
-                            >Social Authorizations</a
-                          >
-                          <div class="slide"></div>
-                        </li>
-                      </ul>
+                    <div class="col-lg-12">
+                      <div class="card version">
+                        <div class="card-header borderless">
+                          <h5>Settings</h5>
+                          <div class="card-header-right">
+                            <i class="icofont icofont-navigation-menu"></i>
+                          </div>
+                        </div>
+                        <div class="card-block">
+                          <ul class="nav navigation">
+                            <a href="{% url 'settings' %}">
+                              {% if request.path == '/settings/' %}
+                              <li style="background-color: #42a5f5;color: #fff;" class="navigation-header">
+                                <i class="icon-history pull-right"></i>
+                                <b>Account</b>
+                              </li>
+                              {% else %}
+                              <li class="navigation-header">
+                                <i class="icon-history pull-right"></i>
+                                <b>Account</b>
+                              </li>
+                              {% endif %}
+                            </a>
+                            <a href="{% url 'stacks' %}">
+                              {% if request.path == '/settings/stacks/' %}
+                              <li style="background-color: #42a5f5;color: #fff;" class="navigation-header">
+                                <i class="icon-history pull-right"></i>
+                                <b>Stacks</b>
+                              </li>
+                              {% else %}
+                              <li class="navigation-header">
+                                <i class="icon-history pull-right"></i>
+                                <b>Stacks</b>
+                              </li>
+                              {% endif %}
+                            </a>
+                            {% if request.path == '/settings/preferences/' %}
+                            <li style="background-color: #42a5f5;" class="waves-effect waves-light">
+                              <a style="color: #fff;" href="{% url 'preferences' %}"
+                                >Preferences<span
+                                  class="text-muted text-regular pull-right"
+                                ></span
+                              ></a>
+                            </li>
+                            {% else %}
+                            <li class="waves-effect waves-light">
+                              <a href="{% url 'preferences' %}"
+                                >Preferences<span
+                                  class="text-muted text-regular pull-right"
+                                ></span
+                              ></a>
+                            </li>
+                            {% endif %}
+                            {% if request.path == '/settings/email-notifications/' %}
+                            <li style="background-color: #42a5f5;" class="waves-effect waves-light">
+                              <a style="color: #fff;" href="{% url 'email_notifications' %}"
+                                >Email Notifications
+                                <span
+                                  class="text-muted text-regular pull-right"
+                                ></span
+                              ></a>
+                            </li>
+                            {% else %}
+                            <li class="waves-effect waves-light">
+                              <a href="{% url 'email_notifications' %}"
+                                >Email Notifications
+                                <span
+                                  class="text-muted text-regular pull-right"
+                                ></span
+                              ></a>
+                            </li>
+                            {% endif %}
+                            <li class="navigation-divider"></li>
 
-                      <div class="tab-content tabs-left-content card-block">
-                        <div
-                          class="tab-pane active show"
-                          id="home5"
-                          role="tabpanel"
-                        >
-                        <!-- Emails -->
-                          <div class="row" style="width: 100%">
-                            <div class="col-md-12">
-                              <div class="card">
-                                <div class="card-header">
-                                  <h5>Emails</h5>
+                            <li class="waves-effect waves-light">
+                              <a href="#"
+                                ><i class="icofont icofont-edit-alt m-r-5"></i>
+                                Edit Profile</a
+                              >
+                            </li>
+                            {% if request.path == '/settings/social-auths/' %}
+                            <li style="background-color: #42a5f5;" class="waves-effect waves-light">
+                              <a style="color: #fff;" href="{% url 'social_auths' %}"
+                                ><i
+                                  class="fa fa-cloud m-r-5"
+                                ></i>
+                                Social Auths</a
+                              >
+                            </li>
+                            {% else %}
+                            <li class="waves-effect waves-light">
+                              <a href="{% url 'social_auths' %}"
+                                ><i
+                                  class="icofont icofont-social-gnome m-r-5"
+                                ></i>
+                                Social Auths</a
+                              >
+                            </li>
+                            {% endif %}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% if request.path == '/settings/' %}
+              <div class="col-lg-8 col-xl-9">
+                <div class="col-sm-12">
+                  <div class="card" id="v_1_2 active show">
+                    <div class="card-header">
+                      <h5><i class="fa fa-user"></i> Account</h5>
+                    </div>
+                    <div class="card-block">
+                      <!-- Account Preferences -->
+                      <!-- Emails -->
+                      <div class="row" style="width: 100%">
+                        <div class="col-md-12">
+                          <div class="card">
+                            <div class="card-header">
+                              <h5>Emails</h5>
+                            </div>
+                            <div class="card-block col-md-12">
+                              {% for email in request.user.emailaddress_set.all %}
+                              <div class="">
+                                <label class="control-label">
+                                  {% if email.primary %} Primary Email: 
+                                  {% else %} Secondary Email: {% endif %}
+                                </label>
+                                <div
+                                  class="primary-email col-sm-8 col-md-7 col-lg-5"
+                                >
+                                  <span class="primary-email-value"
+                                    >{{email}}</span
+                                  >
+                                  {% if email.primary %}
+                                  <span class="label label-primary m-left-xs-5"
+                                    >primary</span
+                                  >
+                                  {% else %}
+                                  <span
+                                    class="label label-secondary m-left-xs-5"
+                                    >secondary</span
+                                  >
+                                  {% endif %}
+                                  <a
+                                    href=""
+                                    title="Change primary email"
+                                    class="primary-email-change text-muted m-left-xs-5 tip"
+                                    data-original-title="Change your primary email"
+                                    ><i class="fa fa-edit"></i
+                                  ></a>
                                 </div>
-                                <div class="card-block col-md-12">
-                                  {% for email in request.user.emailaddress_set.all %}
-                                  <div class="">
-                                    <label class="control-label">
-                                      {% if email.primary %} Primary Email: {% else %} Secondary Email: 
-                                      {% endif %}
-                                    </label>
-                                    <div
-                                      class="primary-email col-sm-8 col-md-7 col-lg-5"
+                              </div>
+                              <br />
+                              {% endfor %}
+                              <p
+                                class="m-0 hidden"
+                                style="color: #fff; cursor: default"
+                              >
+                                2.Cras consequat in enim ut efficitur. Nulla
+                                posuere elit quis auctor interdum praesent sit
+                                amet nulla vel enim amet. Donec convallis tellus
+                                neque, et imperdiet felis amet.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Change password -->
+                      <div class="row" style="width: 100%">
+                        <div class="col-md-12">
+                          <div class="card">
+                            <div class="card-header">
+                              <h5>Change Password</h5>
+                            </div>
+                            <div class="card-block col-md-12">
+                              <div class="">
+                                <form
+                                  method="POST"
+                                  action="{% url 'change_password' request.user.id %}"
+                                  class="form-horizontal change-password m-top-xs-5 m-bottom-xs-5"
+                                >
+                                  {% csrf_token %}
+                                  <div class="form-group">
+                                    <label
+                                      class="col-sm-4 col-md-3 col-lg-2 control-label"
+                                      >Current:</label
                                     >
-                                      <span class="primary-email-value"
-                                        >{{email}}</span
-                                      >
-                                      {% if email.primary %}
-                                      <span
-                                        class="label label-primary m-left-xs-5"
-                                        >primary</span
-                                      >
-                                      {% else %}
-                                      <span
-                                        class="label label-secondary m-left-xs-5"
-                                        >secondary</span
-                                      >
-                                      {% endif %}
-                                      <a
-                                        href=""
-                                        title=""
-                                        class="primary-email-change text-muted m-left-xs-5 tip"
-                                        data-original-title="Change your primary email"
-                                        ><i class="fa fa-edit"></i
-                                      ></a>
+                                    <div class="col-sm-8 col-md-7 col-lg-5">
+                                      <input
+                                        required
+                                        class="form-control"
+                                        type="password"
+                                        name="current_password"
+                                        placeholder="Your Current Password"
+                                        maxlength="200"
+                                        autocomplete="off"
+                                      />
+                                      <div
+                                        id="flash-current_password"
+                                        class="text-danger"
+                                      ></div>
                                     </div>
-                                  </div> <br>
-                                  {% endfor %}
-                                  <p
-                                    class="m-0 hidden"
-                                    style="color: #fff; cursor: default"
+                                  </div>
+                                  <div class="form-group">
+                                    <label
+                                      class="col-sm-4 col-md-3 col-lg-2 control-label"
+                                      >New:</label
+                                    >
+                                    <div class="col-sm-8 col-md-7 col-lg-5">
+                                      <input
+                                        required
+                                        class="form-control"
+                                        type="password"
+                                        name="new_password"
+                                        placeholder="Your New Password"
+                                        maxlength="200"
+                                        autocomplete="off"
+                                        aria-autocomplete="list"
+                                      />
+                                      <div
+                                        id="flash-new_password"
+                                        class="text-danger"
+                                      ></div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label
+                                      class="col-sm-4 col-md-3 col-lg-2 control-label"
+                                      >Again:</label
+                                    >
+                                    <div class="col-sm-8 col-md-7 col-lg-5">
+                                      <input
+                                        required
+                                        class="form-control"
+                                        type="password"
+                                        name="new_password2"
+                                        placeholder="Repeat Your Password"
+                                        maxlength="200"
+                                        autocomplete="off"
+                                      />
+                                      <div
+                                        id="flash-new_password2"
+                                        class="text-danger"
+                                      ></div>
+                                    </div>
+                                  </div>
+                                  <div
+                                    class="form-group p-top-xs-5 m-bottom-xs-0"
                                   >
-                                    2.Cras consequat in enim ut efficitur. Nulla
-                                    posuere elit quis auctor interdum praesent
-                                    sit amet nulla vel enim amet. Donec
-                                    convallis tellus neque, et imperdiet felis
-                                    amet.
-                                  </p>
-                                </div>
+                                    <div
+                                      class="col-sm-4 col-md-3 col-lg-3 col-sm-offset-4 col-md-offset-3 col-lg-offset-2"
+                                    >
+                                      <button
+                                        type="submit"
+                                        class="btn btn-primary"
+                                        data-loading-text="Updating…"
+                                      >
+                                        Change password
+                                      </button>
+                                    </div>
+                                  </div>
+                                </form>
                               </div>
+                              <br />
+                              <p
+                                class="m-0 hidden"
+                                style="color: #fff; cursor: default"
+                              >
+                                2.Cras consequat in enim ut efficitur. Nulla
+                                posuere elit quis auctor interdum praesent sit
+                                amet nulla vel enim amet. Donec convallis tellus
+                                neque, et imperdiet felis amet.
+                              </p>
                             </div>
                           </div>
+                        </div>
+                      </div>
 
-                          <!-- Change password -->
-                          <div class="row" style="width: 100%">
-                            <div class="col-md-12">
-                              <div class="card">
-                                <div class="card-header">
-                                  <h5>Change Password</h5>
-                                </div>
-                                <div class="card-block col-md-12">
-                                  <div class="">
-                                    <form method="POST" action="{% url 'change_password' request.user.id %}" class="form-horizontal change-password m-top-xs-5 m-bottom-xs-5">
-                                        {% csrf_token %}
-                                        <div class="form-group">
-                                          <label class="col-sm-4 col-md-3 col-lg-2 control-label">Current:</label>
-                                          <div class="col-sm-8 col-md-7 col-lg-5">
-                                            <input required class="form-control" type="password" name="current_password" placeholder="Your Current Password" maxlength="200" autocomplete="off">
-                                            <div id="flash-current_password" class="text-danger"></div>
-                                          </div>
-                                        </div>
-                                        <div class="form-group">
-                                          <label class="col-sm-4 col-md-3 col-lg-2 control-label">New:</label>
-                                          <div class="col-sm-8 col-md-7 col-lg-5">
-                                            <input required class="form-control" type="password" name="new_password" placeholder="Your New Password" maxlength="200" autocomplete="off" aria-autocomplete="list">
-                                            <div id="flash-new_password" class="text-danger"></div>
-                                          </div>
-                                        </div>
-                                        <div class="form-group">
-                                          <label class="col-sm-4 col-md-3 col-lg-2 control-label">Again:</label>
-                                          <div class="col-sm-8 col-md-7 col-lg-5">
-                                            <input required class="form-control" type="password" name="new_password2" placeholder="Repeat Your Password" maxlength="200" autocomplete="off">
-                                            <div id="flash-new_password2" class="text-danger"></div>
-                                          </div>
-                                        </div>
-                                        <div class="form-group p-top-xs-5 m-bottom-xs-0">
-                                          <div class="col-sm-4 col-md-3 col-lg-3 col-sm-offset-4 col-md-offset-3 col-lg-offset-2">
-                                            <button type="submit" class="btn btn-primary" data-loading-text="Updating…">Change  password</button>
-                                          </div>
-                                        </div>
-                                      </form>
-                                  </div> <br>
-                                  <p
-                                    class="m-0 hidden"
-                                    style="color: #fff; cursor: default"
-                                  >
-                                    2.Cras consequat in enim ut efficitur. Nulla
-                                    posuere elit quis auctor interdum praesent
-                                    sit amet nulla vel enim amet. Donec
-                                    convallis tellus neque, et imperdiet felis
-                                    amet.
-                                  </p>
-                                </div>
+                      <!-- Security Events -->
+                      <div class="row" style="width: 100%">
+                        <div class="col-md-12">
+                          <div class="card">
+                            <div class="card-header">
+                              <h5>Security Events</h5>
+                            </div>
+                            <div class="card-block col-md-12">
+                              <div class="table-responsive">
+                                <table class="table table-hover">
+                                  <thead>
+                                    <tr>
+                                      <th>Event</th>
+                                      <th>Time</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <td>changed settings</td>
+                                      <td>
+                                        1 day ago
+                                        <i
+                                          title="Chrome near Dar es Salaam"
+                                          class="fa fa-exclamation-circle"
+                                        ></i>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
                               </div>
+                              <br />
+                              <p
+                                class="m-0 hidden"
+                                style="color: #fff; cursor: default"
+                              >
+                                2.Cras consequat in enim ut efficitur. Nulla
+                                posuere elit quis auctor interdum praesent sit
+                                amet nulla vel enim amet. Donec convallis tellus
+                                neque, et imperdiet felis amet.
+                              </p>
                             </div>
                           </div>
                         </div>
-                        <div class="tab-pane" id="profile5" role="tabpanel">
-                          <p class="m-0 hidden">
-                            2.Cras consequat in enim ut efficitur. Nulla posuere
-                            elit quis auctor interdum praesent sit amet nulla
-                            vel enim amet. Donec convallis tellus neque, et
-                            imperdiet felis amet.
-                          </p>
+                      </div>
+
+                      <!-- Delete Account -->
+                      <div class="row" style="width: 100%">
+                        <div class="col-md-12">
+                          <div class="card">
+                            <div class="card-header">
+                              <h5>Delete Account</h5>
+                            </div>
+                            <div class="card-block col-md-12">
+                              <div class="panel-body ml-3">
+                                <div class="row">
+                                  <div class="col-xs-12">
+                                    <a
+                                      data-toggle="modal"
+                                      data-target="#flipFlop"
+                                      href="javascript:void(0)"
+                                      class="btn btn-danger"
+                                      >Delete account</a
+                                    >
+                                    <span
+                                      class="text-muted m-top-xs-10 m-left-md-20 small show-xs-ib ml-3"
+                                      >Warning: Your activities cannot be
+                                      recovered after deleting your
+                                      account.</span
+                                    >
+                                  </div>
+                                  <div
+                                    class="modal fade"
+                                    id="flipFlop"
+                                    tabindex="-1"
+                                    role="dialog"
+                                    aria-labelledby="modalLabel"
+                                    aria-hidden="true"
+                                  >
+                                    <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h4
+                                            class="modal-title"
+                                            id="modalLabel"
+                                          >
+                                            Delete Account
+                                          </h4>
+                                          <button
+                                            type="button"
+                                            class="close"
+                                            data-dismiss="modal"
+                                            aria-label="Close"
+                                          >
+                                            <span aria-hidden="true">×</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <div class="row">
+                                            <div class="col-sm-12">
+                                              <div class="form-material">
+                                                <div class="right-icon-control">
+                                                  <form
+                                                    method="POST"
+                                                    class="form-material"
+                                                    action="{% url 'delete_account' request.user.id %}"
+                                                  >
+                                                    {% csrf_token %}
+                                                    <div
+                                                      class="form-group form-primary"
+                                                    >
+                                                      <h5
+                                                        style="
+                                                          text-align: center;
+                                                        "
+                                                      >
+                                                        Are you sure you want to
+                                                        delete your account?
+                                                      </h5>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                      <button
+                                                        type="submit"
+                                                        class="save_btn btn btn-danger"
+                                                      >
+                                                        Sure
+                                                      </button>
+                                                      <button
+                                                        type="button"
+                                                        class="btn btn-default close_btn"
+                                                        data-dismiss="modal"
+                                                      >
+                                                        Close
+                                                      </button>
+                                                    </div>
+                                                  </form>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <br />
+                              <p
+                                class="m-0 hidden"
+                                style="color: #fff; cursor: default"
+                              >
+                                2.Cras consequat in enim ut efficitur. Nulla
+                                posuere elit quis auctor interdum praesent sit
+                                amet nulla vel enim amet. Donec convallis tellus
+                                neque, et imperdiet felis amet.
+                              </p>
+                            </div>
+                          </div>
                         </div>
-                        <div class="tab-pane" id="messages5" role="tabpanel">
-                          <p class="m-0 hidden">
-                            3. This is Photoshop's version of Lorem IpThis is
-                            Photoshop's version of Lorem Ipsum. Proin gravida
-                            nibh vel velit auctor aliquet. Aenean sollicitudin,
-                            lorem quis bibendum auctor, nisi elit consequat
-                            ipsum, nec sagittis sem nibh id elit. Lorem ipsum
-                            dolor sit amet, consectetuer adipiscing elit. Aenean
-                            commodo ligula eget dolor. Aenean mas Cum sociis
-                            natoque penatibus et magnis dis.....
-                          </p>
-                        </div>
-                        <div class="tab-pane" id="settings5" role="tabpanel">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% elif request.path == '/settings/social-auths/' %}
+              <div class="col-lg-8 col-xl-9">
+                <div class="col-sm-12">
+                  <div class="card" id="v_1_2 active show">
+                    <div class="card-header">
+                      <h5><i class="fa fa-cloud"></i> Social Auths</h5>
+                    </div>
+                    <div class="card-block">
+                      <!-- Social Auths -->
+                      <div class="row" style="width: 100%">
+                        <div class="col-md-12">
                           {% if github_login %}
                           <div class="col-xs-12">
                             <label
@@ -263,7 +517,7 @@
                           </div>
                           {% else %}
                           <a href="{% url 'social:begin' 'github' %}"
-                            >Connect to GitHub</a
+                            >Connect with GitHub</a
                           >
                           {% endif %} {% if facebook_login %}
                           <div class="col-xs-12">
@@ -317,7 +571,7 @@
                           </div>
                           {% else %} <br />
                           <a href="{% url 'social:begin' 'facebook' %}"
-                            >Connect to Facebook</a
+                            >Connect with Facebook</a
                           >
                           {% endif %} {% if twitter_login %}
                           <div class="col-xs-12">
@@ -339,9 +593,7 @@
                                       href="https://twitter.com/{{ twitter_login.extra_data.access_token.screen_name }}/"
                                       target="_blank"
                                     >
-                                      @{{
-                                      twitter_login.extra_data.access_token.screen_name
-                                      }}
+                                      @{{twitter_login.extra_data.access_token.screen_name}}
                                     </a></span
                                   >
                                   {% if can_disconnect %}
@@ -373,25 +625,265 @@
                           </div>
                           {% else %} <br />
                           <a href="{% url 'social:begin' 'twitter' %}"
-                            >Connect to Twitter</a
+                            >Connect with Twitter</a
                           >
                           {% endif %}
-                          <p class="m-0 hidden" style="color: #fff; cursor: default">
-                            4.Cras consequat in enim ut efficitur. Nulla posuere
-                            elit quis auctor interdum praesent sit amet nulla
-                            vel enim amet. Donec convallis tellus neque, et
-                            imperdiet felis amet.
-                          </p>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% elif request.path == '/settings/preferences/' %}
+              <div class="col-lg-8 col-xl-9">
+                <div class="col-sm-12">
+                  <div class="card" id="v_1_2 active show">
+                    <div class="card-header">
+                      <h5><i class="fa fa-cogs"></i> Public Preferences</h5>
+                    </div>
+                    <div class="card-block">
+                      <!-- Preferences -->
+                      <div class="row" style="width: 100%">
+                        <div class="col-md-12">
+                          <div class="card">
+                            <div class="card-block col-md-12">
+                              <form method="POST" action="{% url 'save_dev_preference' request.user.id %}">
+                                  {% csrf_token %}
+                                  <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Show Both Primary &amp; Secomdary Emails</label>
+                                    <div class="col-sm-10">
+                                      {% if request.user.publicpreference.both_emails %}
+                                      <input type="checkbox" checked class="js-single js-switch" name="emails">
+                                      {% else %}
+                                      <input type="checkbox" class="js-single js-switch" name="emails">
+                                      {% endif %}
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Hireable Tag</label>
+                                    <div class="col-sm-10">
+                                      {% if request.user.publicpreference.hireable %}
+                                      <input type="checkbox" checked class="js-single js-switch" name="hireable">
+                                      {% else %}
+                                      <input type="checkbox" class="js-single js-switch" name="hireable">
+                                      {% endif %}
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Show Bio</label>
+                                    <div class="col-sm-10">
+                                      {% if request.user.publicpreference.bio %}
+                                      <input type="checkbox" checked class="js-single js-switch" name="bio">
+                                      {% else %}
+                                      <input type="checkbox" class="js-single js-switch" name="bio">
+                                      {% endif %}
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Show Phone Number</label>
+                                    <div class="col-sm-10">
+                                      {% if request.user.publicpreference.phone %}
+                                      <input type="checkbox" checked class="js-single js-switch" name="phone">
+                                      {% else %}
+                                      <input type="checkbox" class="js-single js-switch" name="phone">
+                                      {% endif %}
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Show Gender</label>
+                                    <div class="col-sm-10">
+                                      {% if request.user.publicpreference.gender %}
+                                      <input type="checkbox" checked class="js-single js-switch" name="gender">
+                                      {% else %}
+                                      <input type="checkbox" class="js-single js-switch" name="gender">
+                                      {% endif %}
+                                    </div>
+                                  </div>
+                                  <button type="submit" class="btn btn-primary">Save</button>
+                                </form>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+              {% elif request.path == '/settings/email-notifications/' %}
+              <div class="col-lg-8 col-xl-9">
+                <div class="col-sm-12">
+                  <div class="card" id="v_1_2 active show">
+                    <div class="card-header">
+                      <h5><i class="fa fa-envelope"></i> Email Preferences</h5>
+                    </div>
+                    <div class="card-block">
+                      <!-- Email Preferences -->
+                      <div class="row" style="width: 100%">
+                        <div class="col-md-12">
+                          <div class="card">
+                            <div class="card-block col-md-12">
+                              <form method="POST" action="{% url 'save_email_preference' request.user.id %}">
+                                  {% csrf_token %}
+                                  <table class="table table-hover table-no-heading m-bottom-xs-0">
+                                      <tr>
+                                        <td>
+                                          <div class="row">
+                                            <div class="col-xs-12 center-xs col-sm-5 col-md-4 col-lg-3 left-sm">
+                                              {% if request.user.emailpreference.logins %}
+                                              <input type="checkbox" class="toggle" name="logins" checked/>
+                                              {% else %}
+                                              <input type="checkbox" class="toggle" name="logins"/>
+                                              {% endif %}
+                                              <span class="mailing_list-name p-left-md-10">Logins</span>
+                                            </div>
+                                            <div class="col-xs-12 center-xs col-sm-7 col-md-8 col-lg-9 left-sm">
+                                              <span class="mailing_list-description text-muted">
+                                                Email notification whenever you login, for peace of mind.
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td>
+                                          <div class="row">
+                                            <div class="col-xs-12 center-xs col-sm-5 col-md-4 col-lg-3 left-sm">
+                                              {% if request.user.emailpreference.updates %}
+                                              <input type="checkbox" class="toggle" checked name="updates"/>
+                                              {% else %}
+                                              <input type="checkbox" class="toggle" name="updates"/>
+                                              {% endif %}
+                                              <span class="mailing_list-name p-left-md-10">Updates</span>
+                                            </div>
+                                            <div class="col-xs-12 center-xs col-sm-7 col-md-8 col-lg-9 left-sm">
+                                              <span class="mailing_list-description text-muted">
+                                                New features and product updates.
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td>
+                                          <div class="row">
+                                            <div class="col-xs-12 center-xs col-sm-5 col-md-4 col-lg-3 left-sm">
+                                              {% if request.user.emailpreference.messages %}
+                                              <input type="checkbox" class="toggle" checked name="messages"/>
+                                              {% else %}
+                                              <input type="checkbox" class="toggle" name="messages"/>
+                                              {% endif %}
+                                              <span class="mailing_list-name p-left-md-10">Messages</span>
+                                            </div>
+                                            <div class="col-xs-12 center-xs col-sm-7 col-md-8 col-lg-9 left-sm">
+                                              <span class="mailing_list-description text-muted">
+                                                Email notification whenever a Dev send a message
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                  </table>
+                                  <button type="submit" class="btn btn-primary">Save</button>
+                                </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% elif request.path == '/settings/stacks/' %}
+              <div class="col-lg-8 col-xl-9">
+                <div class="col-sm-12">
+                  <div class="card" id="v_1_2 active show">
+                    <div class="card-header">
+                      <h5><i class="fa fa-cubes"></i> Languages, Frameworks &amp; Tools</h5>
+                    </div>
+                    <div class="card-block">
+                      <!-- Stacks -->
+                      <div class="row" style="width: 100%">
+                        <div class="col-md-12">
+                          <div class="card">
+                            <div class="card-block col-md-12">
+                              <form method="POST" action="{% url 'save_email_preference' request.user.id %}">
+                                  {% csrf_token %}
+                                  <table class="table table-hover table-no-heading m-bottom-xs-0">
+                                      <tr>
+                                        <td>
+                                          <div class="row">
+                                            <div class="col-xs-12 center-xs col-sm-5 col-md-4 col-lg-3 left-sm">
+                                              {% if request.user.emailpreference.logins %}
+                                              <input type="checkbox" class="toggle" name="logins" checked/>
+                                              {% else %}
+                                              <input type="checkbox" class="toggle" name="logins"/>
+                                              {% endif %}
+                                              <span class="mailing_list-name p-left-md-10">Logins</span>
+                                            </div>
+                                            <div class="col-xs-12 center-xs col-sm-7 col-md-8 col-lg-9 left-sm">
+                                              <span class="mailing_list-description text-muted">
+                                                Email notification whenever you login, for peace of mind.
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td>
+                                          <div class="row">
+                                            <div class="col-xs-12 center-xs col-sm-5 col-md-4 col-lg-3 left-sm">
+                                              {% if request.user.emailpreference.updates %}
+                                              <input type="checkbox" class="toggle" checked name="updates"/>
+                                              {% else %}
+                                              <input type="checkbox" class="toggle" name="updates"/>
+                                              {% endif %}
+                                              <span class="mailing_list-name p-left-md-10">Updates</span>
+                                            </div>
+                                            <div class="col-xs-12 center-xs col-sm-7 col-md-8 col-lg-9 left-sm">
+                                              <span class="mailing_list-description text-muted">
+                                                New features and product updates.
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td>
+                                          <div class="row">
+                                            <div class="col-xs-12 center-xs col-sm-5 col-md-4 col-lg-3 left-sm">
+                                              {% if request.user.emailpreference.messages %}
+                                              <input type="checkbox" class="toggle" checked name="messages"/>
+                                              {% else %}
+                                              <input type="checkbox" class="toggle" name="messages"/>
+                                              {% endif %}
+                                              <span class="mailing_list-name p-left-md-10">Messages</span>
+                                            </div>
+                                            <div class="col-xs-12 center-xs col-sm-7 col-md-8 col-lg-9 left-sm">
+                                              <span class="mailing_list-description text-muted">
+                                                Email notification whenever a Dev send a message
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                  </table>
+                                  <button type="submit" class="btn btn-primary">Save</button>
+                                </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
             </div>
           </div>
         </div>
       </div>
+      <div id="styleSelector"></div>
     </div>
     <div id="styleSelector"></div>
   </div>

@@ -86,6 +86,11 @@
     type="text/css"
     href="{% static 'vendors/css/pages.css' %}"
   />
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{% static 'vendors/css/switchery.min.css' %}"
+  />
 
   <style>
     #id_login,
@@ -157,4 +162,6 @@
       cursor: default;
     }
   </style>
+  {% block custom_css %}
+  {% endblock custom_css %}
 </head>
