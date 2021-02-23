@@ -8,6 +8,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('oauth/', include('social_django.urls', namespace='social')),
     path('', include("devs.urls")),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT) + \
     static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

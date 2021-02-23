@@ -26,6 +26,7 @@ DEFAULT_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
 ]
 
 THIRD_PARTY_APPS = [
@@ -35,6 +36,8 @@ THIRD_PARTY_APPS = [
     'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.facebook',
     'social_django',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 CUSTOM_APPS = [
@@ -44,6 +47,20 @@ CUSTOM_APPS = [
 INSTALLED_APPS = THIRD_PARTY_APPS + CUSTOM_APPS + DEFAULT_APPS
 
 SITE_ID = 1
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink'],
+            ['RemoveFormat', 'Source']
+        ]
+    }
+}
 
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {

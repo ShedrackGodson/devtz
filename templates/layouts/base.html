@@ -9,12 +9,12 @@
       <div class="loader-bar"></div>
     </div>
 
-    <div id="pcoded" class="pcoded">
+    <div  id="pcoded" class="pcoded">
       <div class="pcoded-overlay-box"></div>
       <div class="pcoded-container navbar-wrapper">
-        <nav class="navbar header-navbar pcoded-header">
+        <nav style="background-color: #1D4354;" class="navbar header-navbar pcoded-header">
           <div class="navbar-wrapper">
-            <div class="navbar-logo">
+            <div style="background-color: #1D4354;" class="navbar-logo">
               <a href="">
                 <img
                   class="img-fluid"
@@ -147,11 +147,19 @@
                 <li class="user-profile header-notification">
                   <div class="dropdown-primary dropdown">
                     <div class="dropdown-toggle" data-toggle="dropdown">
+                      {% if request.user.profile_image %}
                       <img
-                        src="{% static 'images/avatar-4.jpg' %}"
+                        src="{{request.user.profile_image.url}}"
                         class="img-radius"
                         alt="User-Profile-Image"
                       />
+                      {% else %}
+                      <img
+                        src="{% static 'images/user.png' %}"
+                        class="img-radius"
+                        alt="User-Profile-Image"
+                      />
+                      {% endif %}
                       <span>John Doe</span>
                       <i class="feather icon-chevron-down"></i>
                     </div>

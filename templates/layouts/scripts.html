@@ -1,4 +1,6 @@
 {% load static %}
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
 <script
       type="text/javascript"
       src="{% static 'vendors/js/jquery.min.js' %}"
@@ -80,6 +82,12 @@
     ></script>
     <script type="text/javascript" src="{% static 'vendors/js/switchery.min.js' %}"></script>
     <!-- <script type="text/javascript" src="{% static 'vendors/js/swithces.js' %}"></script> -->
+    <script type="text/javascript" src="{% static 'vendors/js/select2.full.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'vendors/js/bootstrap-multiselect.js' %}">
+    </script>
+    <script type="text/javascript" src="{% static 'vendors/js/jquery.multi-select.js' %}"></script>
+    
+    <script type="text/javascript" src="{% static 'vendors/js/select2-custom.js' %}"></script>
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"
@@ -98,7 +106,11 @@
       data-cf-settings="42aef7bbc68a3cc7593721e5-|49"
       defer=""
     ></script>
-    <!-- <script>
-      var date = new Date();
-      document.getElementById("current_year_home").innerHTML = date.getFullYear();
-    </script> -->
+    <script>
+      // Skills Tag
+      $("#skills-tag").select2({
+        maximumSelectionLength: 10,
+      });
+    </script>
+    {% block custom_js %}
+    {% endblock custom_js %}
