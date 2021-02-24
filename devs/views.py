@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from devs.forms import AddOtherExperienceForm
 from social_django.models import UserSocialAuth
 from django.shortcuts import redirect, render
-from devs.models import Dev, EmailPreference, PublicPreference, SkillSet
+from devs.models import Dev, EmailPreference, OtherExperience, PublicPreference, SkillSet
 from django.contrib import messages
 
 
@@ -221,8 +221,43 @@ def add_other_experience(request, username):
                 messages.success(request, "Experience added.")
             else:
                 messages.error(request, "Something went wrong.")
-                print(form.errors)
+                # print(form.errors)
         except Exception as e:
-            print(e)
+            # print(e)
             messages.error(request, "Something went wrong.")
         return redirect("profile", dev.username)
+
+
+@login_required
+@csrf_exempt
+def delete_other_experience(request, experience_id, dev_username):
+    try:
+        dev = Dev.objects.get(username=dev_username)
+        experience = OtherExperience.objects.get(
+                id=experience_id
+            )
+        if dev == request.user and experience.dev == request.user:
+            experience.delete()
+            messages.success(request, "Experience deleted.")
+    except:
+        messages.error(request, "Something went wrong.")
+    return redirect("profile", dev.username)
+
+
+@login_required
+@csrf_exempt
+def update_other_experience(request, experience_id, dev_username):
+    try:
+        dev = Dev.objects.get(username=dev_username)
+        experience = OtherExperience.objects.get(
+                id=experience_id
+            )
+        if dev == request.user and experience.dev == request.user:
+            experience.subject = request.POST.get("subject")
+            experience.description = request.POST.get("description")
+            experience.save()
+            messages.success(request, "Experience updated.")
+    except:
+        messages.error(request, "Something went wrong.")
+    return redirect("profile", dev.username)
+
