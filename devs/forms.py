@@ -1,5 +1,6 @@
 from allauth.account.forms import SignupForm, LoginForm
-from devs.models import Dev
+from ckeditor.widgets import CKEditorWidget
+from devs.models import Dev, OtherExperience
 from django import forms
 
 
@@ -18,3 +19,21 @@ class AddDevForm(SignupForm):
     #         "username", "email"
     #     ]
 
+class AddOtherExperienceForm(forms.ModelForm):
+    subject = forms.CharField(required=True, widget=forms.TextInput(attrs={
+        "class": "form-control autofocus", "placeholder": "Enter subject..."
+    }))
+
+    description = forms.CharField(required=True, widget=CKEditorWidget(attrs={
+        "class": "form-control autofocus", "placeholder": "Enter description...",
+    }))
+
+    def save(self, commit, dev):
+        experience = super(AddOtherExperienceForm, self).save(commit=False, dev=dev)
+        experience.dev = dev
+        experience.save(commit, dev)
+        return experience
+
+    class Meta:
+        model = OtherExperience
+        fields = ["subject", "description"]

@@ -128,9 +128,9 @@
 {% endblock custom_css %}
 <div class="pcoded-content">
   <!-- <div class="pcoded-inner-content"> -->
-  {% include 'layouts/messages.html' %}
-  <div class="pcoded-inner-content">
-    <div class="main-body">
+    <div class="pcoded-inner-content">
+      <div class="main-body">
+      {% include 'layouts/messages.html' %}
       <div class="page-wrapper">
         <div class="page-body">
           <div class="row">
@@ -141,6 +141,7 @@
                     <div class="float-left">
                       <div class="container">
                         <div class="image-container float-left">
+                          {% if request.user.profile_image %}
                           <img
                             src="{{request.user.profile_image.url}}"
                             alt="Avatar"
@@ -148,6 +149,15 @@
                             height="120"
                             id="avatar"
                           />
+                          {% else %}
+                          <img
+                            src="{% static 'images/user.png' %}"
+                            alt="Avatar"
+                            width="120"
+                            height="120"
+                            id="avatar"
+                          />
+                          {% endif %}
                         </div>
                         <div class="username-container float-left">
                           <h4 id="username">@{{request.user.username}}</h4>
@@ -356,36 +366,24 @@
                               ></i>
                             </h4>
                             <div class="card-block button-list">
+                              {% for skill in request.user.devskillset.skill_sets.all %}
                               <button
-                                style="
-                                  background-color: rgb(204, 201, 200);
-                                  border: none;
-                                  color: black;
-                                "
-                                type="button"
-                                class="btn btn-primary btn-sm waves-effect waves-light"
-                                data-toggle="tooltip"
-                                data-placement="top"
-                                title=""
-                                data-original-title="Python is a high level language"
-                              >
-                                Python
-                              </button>
-                              <button
-                                style="
-                                  background-color: rgb(204, 201, 200);
-                                  border: none;
-                                  color: black;
-                                "
-                                type="button"
-                                class="btn btn-primary btn-sm waves-effect waves-light"
-                                data-toggle="tooltip"
-                                data-placement="top"
-                                title=""
-                                data-original-title="You never understands Js"
-                              >
-                                Javascript
-                              </button>
+                              style="
+                                background-color: rgb(204, 201, 200);
+                                border: none;
+                                color: black;
+                              "
+                              type="button"
+                              class="btn btn-primary btn-sm waves-effect waves-light"
+                              data-toggle="tooltip"
+                              data-placement="top"
+                              title="{{skill.description|safe|slice:':100'}}"
+                              data-original-title="{{skill.description|safe}}"
+                            >
+                              {{skill.name}}
+                            </button>
+                              {% endfor %}
+                              
                             </div>
                             <!-- Skills Modal -->
                             <div
@@ -420,343 +418,13 @@
                                               >
                                                 <!-- Skill sets -->
                                                 <select style="width: 100%;color: black;" class="js-example-diacritics skills-tag" multiple="multiple">
-                                                  <option value="AI">AI</option>
-                                                  <option value="AMX">AMX</option>
-                                                  <option value="ADR">ADR</option>
-                                                  <option value="AIX">AIX</option>
-                                                  <option value="ADK">ADK</option>
-                                                  <option value="AMO">AMO</option>
-                                                  <option value="ANI">ANI</option>
-                                                  <option value="APC">APC</option>
-                                                  <option value="API">API</option>
-                                                  <option value="ADVA">ADVA</option>
-                                                  <option value="AMQP">AMQP</option>
-                                                  <option value="AISC">AISC</option>
-                                                  <option value="AJAX">AJAX</option>
-                                                  <option value="ACT!">ACT!</option>
-                                                  <option value="AOSP">AOSP</option>
-                                                  <option value="AGAL">AGAL</option>
-                                                  <option value="ACIP">ACIP</option>
-                                                  <option value="ACIS">ACIS</option>
-                                                  <option value="ALICE">ALICE</option>
-                                                  <option value="B2B">B2B</option>
-                                                  <option value="B2C">B2C</option>
-                                                  <option value="BAT">BAT</option>
-                                                  <option value="BOM">BOM</option>
-                                                  <option value="BOQ">BOQ</option>
-                                                  <option value="C">C</option>
-                                                  <option value="C#">C#</option>
-                                                  <option value="C5">C5</option>
-                                                  <option value="CAE">CAE</option>
-                                                  <option value="C++">C++</option>
-                                                  <option value="CGI">CGI</option>
-                                                  <option value="CDR">CDR</option>
-                                                  <option value="CAD">CAD</option>
-                                                  <option value="CCPA">CCPA</option>
-                                                  <option value="CJIS">CJIS</option>
-                                                  <option value="CI/CD">CI/CD</option>
-                                                  <option value="CATIA">CATIA</option>
-                                                  <option value="D">D</option>
-                                                  <option value="DTS">DTS</option>
-                                                  <option value="DNS">DNS</option>
-                                                  <option value="DOS">DOS</option>
-                                                  <option value="DOC">DOC</option>
-                                                  <option value="DNS">DNS</option>
-                                                  <option value="DIY">DIY</option>
-                                                  <option value="DOE">DOE</option>
-                                                  <option value="DNN">DNN</option>
-                                                  <option value="DAE">DAE</option>
-                                                  <option value="DART">DART</option>
-                                                  <option value="DBMS">DBMS</option>
-                                                  <option value="DHCP">DHCP</option>
-                                                  <option value="D3.js">D3.js</option>
-                                                  <option value="EOS">EOS</option>
-                                                  <option value="EPS">EPS</option>
-                                                  <option value="EPA">EPA</option>
-                                                  <option value="EDM">EDM</option>
-                                                  <option value="EPC">EPC</option>
-                                                  <option value="ECP">ECP</option>
-                                                  <option value="E4X">E4X</option>
-                                                  <option value="EJS">EJS</option>
-                                                  <option value="EJB">EJB</option>
-                                                  <option value="ELI5">ELI5</option>
-                                                  <option value="ESP32">ESP32</option>
-                                                  <option value="ESLINT">ESLINT</option>
-                                                  <option value="EPANET">EPANET</option>
-                                                  <option value="ERPNext">ERPNext</option>
-                                                  <option value="F5">F5</option>
-                                                  <option value="F#">F#</option>
-                                                  <option value="FTP">FTP</option>
-                                                  <option value="FAQ">FAQ</option>
-                                                  <option value="GPS">GPS</option>
-                                                  <option value="GSM">GSM</option>
-                                                  <option value="GPO">GPO</option>
-                                                  <option value="GRS">GRS</option>
-                                                  <option value="GIF">GIF</option>
-                                                  <option value="GIMP">GIMP</option>
-                                                  <option value="GPRS">GPRS</option>
-                                                  <option value="GISC">GISC</option>
-                                                  <option value="GAME">GAME</option>
-                                                  <option value="GILKit">GILKit</option>
-                                                  <option value="H2">H2</option>
-                                                  <option value="HSS">HSS</option>
-                                                  <option value="HR Laws">HR Laws</option>
-                                                  <option value="HP-UX">HP-UX</option>
-                                                  <option value="HBase">HBase</option>
-                                                  <option value="HAZOP">HAZOP</option>
-                                                  <option value="HAZID">HAZID</option>
-                                                  <option value="H2020">H2020</option>
-                                                  <option value="HRM">HRM</option>
-                                                  <option value="HSS">HSS</option>
-                                                  <option value="J1">J1</option>
-                                                  <option value="JCL">JCL</option>
-                                                  <option value="JSP">JSP</option>
-                                                  <option value="JSF">JSF</option>
-                                                  <option value="JPG">JPG</option>
-                                                  <option value="JPA">JPA</option>
-                                                  <option value="JAXP">JAXP</option>
-                                                  <option value="JAMF">JAMF</option>
-                                                  <option value="J2EE">J2EE</option>
-                                                  <option value="JDBC">JDBC</option>
-                                                  <option value="JSON">JSON</option>
-                                                  <option value="JDOM">JDOM</option>
-                                                  <option value="J2SE">J2SE</option>
-                                                  <option value="KERNEL">KERNEL</option>
-                                                  <option value="KRPano">KRPano</option>
-                                                  <option value="LED">LED</option>
-                                                  <option value="LXD">LXD</option>
-                                                  <option value="LIMS">LIMS</option>
-                                                  <option value="LINQ">LINQ</option>
-                                                  <option value="LAMP">LAMP</option>
-                                                  <option value="LabTech">LabTech</option>
-                                                  <option value="MCP">MCP</option>
-                                                  <option value="MPG">MPG</option>
-                                                  <option value="MP4">MP4</option>
-                                                  <option value="MOV">MOV</option>
-                                                  <option value="MKV">MKV</option>
-                                                  <option value="MDX">MDX</option>
-                                                  <option value="MQTT">MQTT</option>
-                                                  <option value="MUMPS">MUMPS</option>
-                                                  <option value="M-Tek">M-Tek</option>
-                                                  <option value="ORM">ORM</option>
-                                                  <option value="ODBC">ODBC</option>
-                                                  <option value="OWL">OWL</option>
-                                                  <option value="OTT">OTT</option>
-                                                  <option value="OLGA">OLGA</option>
-                                                  <option value="OAuth">OAuth</option>
-                                                  <option value="OTRS">OTRS</option>
-                                                  <option value="P6">P6</option>
-                                                  <option value="PC">PC</option>
-                                                  <option value="PPT">PPT</option>
-                                                  <option value="PDF">PDF</option>
-                                                  <option value="PNG">PNG</option>
-                                                  <option value="PIC">PIC</option>
-                                                  <option value="PHP">PHP</option>
-                                                  <option value="PMDS">PMDS</option>
-                                                  <option value="PIVX">PIVX</option>
-                                                  <option value="PACS">PACS</option>
-                                                  <option value="PCAP">PCAP</option>
-                                                  <option value="PIC32">PIC32</option>
-                                                  <option value="PIC24">PIC24</option>
-                                                  <option value="P-CAD">P-CAD</option>
-                                                  <option value="P5.JS">P5.JS</option>
-                                                  <option value="POSIX">POSIX</option>
-                                                  <option value="PIC16">PIC16</option>
-                                                  <option value="R">R</option>
-                                                  <option value="RB">RB</option>
-                                                  <option value="RDF">RDF</option>
-                                                  <option value="RTL">RTL</option>
-                                                  <option value="RSS">RSS</option>
-                                                  <option value="RPO">RPO</option>
-                                                  <option value="RNA">RNA</option>
-                                                  <option value="RFQ">RFQ</option>
-                                                  <option value="RFP">RFP</option>
-                                                  <option value="RFI">RFI</option>
-                                                  <option value="RAW">RAW</option>
-                                                  <option value="RTML">RTML</option>
-                                                  <option value="REST">REST</option>
-                                                  <option value="RTOS">RTOS</option>
-                                                  <option value="RFID">RFID</option>
-                                                  <option value="REBoL">REBoL</option>
-                                                  <option value="TQM">TQM</option>
-                                                  <option value="TCP">TCP</option>
-                                                  <option value="TEFL">TEFL</option>
-                                                  <option value="T-SQL">T-SQL</option>
-                                                  <option value="TYPO3">TYPO3</option>
-                                                  <option value="TCP/IP">TCP/IP</option>
-                                                  <option value="TAGLINE">TAGLINE</option>
-                                                  <option value="UX">UX</option>
-                                                  <option value="ULU">ULU</option>
-                                                  <option value="UML">UML</option>
-                                                  <option value="USDA">USDA</option>
-                                                  <option value="USAID">USAID</option>
-                                                  <option value="Udemy">Udemy</option>
-                                                  <option value="UCare">UCare</option>
-                                                  <option value="UX/UI">UX/UI</option>
-                                                  <option value="UIKit">UIKit</option>
-                                                  <option value="Ubuntu">Ubuntu</option>
-                                                  <option value="Ubercart">Ubercart</option>
-                                                  <option value="VPN">VPN</option>
-                                                  <option value="VSS">VSS</option>
-                                                  <option value="PIVX">PIVX</option>
-                                                  <option value="VYPER">VYPER</option>
-                                                  <option value="VMWare">VMWare</option>
-                                                  <option value="Vaadin">Vaadin</option>
-                                                  <option value="VB.NET">VB.NET</option>
-                                                  <option value="Vanilla">Vanilla</option>
-                                                  <option value="WAMP">WAMP</option>
-                                                  <option value="WAN">WAN</option>
-                                                  <option value="WatchKit">WatchKit</option>
-                                                  <option value="X++">X++</option>
-                                                  <option value="XML">XML</option>
-                                                  <option value="XSL">XSL</option>
-                                                  <option value="XNA">XNA</option>
-                                                  <option value="XSD">XSD</option>
-                                                  <option value="XAPI">XAPI</option>
-                                                  <option value="XboX">XboX</option>
-                                                  <option value="XAMMP">XAMMP</option>
-                                                  <option value="XPATH">XPATH</option>
-                                                  <option value="YAML">YAML</option>
-                                                  <option value="YARN">YARN</option>
-                                                  <option value="Yahoo">Yahoo</option>
-                                                  <option value="YouTube">YouTube</option>
-                                                  <option value="Yello">Yello</option>
-                                                  <option value="Yoruba">Yoruba</option>
-                                                  <option value="Yiddish">Yiddish</option>
-                                                  <option value="Yellowfin">Yellowfin</option>
-                                                  <option value="Yoast SEO">Yoast SEO</option>
-                                                  <option value="Yandex API">Yandex API</option>
-                                                  <option value="Yesware">Yesware</option>
-                                                  <option value="Yeoman">Yeoman</option>
-                                                  <option value="Zoomla">Zoomla</option>
-                                                  <option value="Zapier">Zapier</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="A.NET">A.NET</option>
-                                                  <option value="ACTION">ACTION</option>
-                                                  <option value="ActionScript">ActionScript</option>
-                                                  <option value="Ada">Ada</option>
-                                                  <option value="ALGOL 58">ALGOL 58</option>
-                                                  <option value="ALGOL 60">ALGOL 60</option>
-                                                  <option value="ALGOL 68">ALGOL 68</option>
-                                                  <option value="ALGOL W">ALGOL W</option>
-                                                  <option value="AngelScript">AngelScript</option>
-                                                  <option value="Apache Pig latin">Apache Pig latin</option>
-                                                  <option value="Apex">Apex</option>
-                                                  <option value="APL">APL</option>
-                                                  <option value="Android">Android</option>
-                                                  <option value="Android Studio">Android Studio</option>
-                                                  <option value="Visual LISP">Visual LISP</option>
-                                                  <option value="B">B</option>
-                                                  <option value="B#">B#</option>
-                                                  <option value="BASIC">BASIC</option>
-                                                  <option value="BASH">BASH</option>
-                                                  <option value="Batch FIle">Batch FIle</option>
-                                                  <option value="BeanShell">BeanShell</option>
-                                                  <option value="BETA">BETA</option>
-                                                  <option value="Boomerang">Boomerang</option>
-                                                  <option value="Bosque">Bosque</option>
-                                                  <option value="Boo">Boo</option>
-                                                  <option value="C">C</option>
-                                                  <option value="C--">C--</option>
-                                                  <option value="C*">C*</option>
-                                                  <option value="C/AL">C/AL</option>
-                                                  <option value="C Shell(csh)">C Shell(csh)</option>
-                                                  <option value="Clojure">Clojure</option>
-                                                  <option value="Claire">Claire</option>
-                                                  <option value="Chuck">Chuck</option>
-                                                  <option value="CL(IBM)">CL(IBM)</option>
-                                                  <option value="CMS-2">CMS-2</option>
-                                                  <option value="COBOL">COBOL</option>
-                                                  <option value="CobolScript">CobolScript</option>
-                                                  <option value="Cobra">Cobra</option>
-                                                  <option value="CoffeeScript">CoffeeScript</option>
-                                                  <option value="Zabbiz">ColdFusion</option>
-                                                  <option value="ColdFusion">Zabbiz</option>
-                                                  <option value="COMAL">COMAL</option>
-                                                  <option value="Combined Programming Language(CPL)">Combined Programming Language(CPL)</option>
-                                                  <option value="Common Intermediate Language(CIL)">Common Intermediate Language(CIL)</option>
-                                                  <option value="Pascal">Pascal</option>
-                                                  <option value="Lisp">Lisp</option>
-                                                  <option value="Curl">Curl</option>
-                                                  <option value="D">D</option>
-                                                  <option value="Darwin">Darwin</option>
-                                                  <option value="DataFlex">DataFlex</option>
-                                                  <option value="DataLog">DataLog</option>
-                                                  <option value="dBase">dBase</option>
-                                                  <option value="dc">dc</option>
-                                                  <option value="DCL">DCL</option>
-                                                  <option value="Delphi">Delphi</option>
-                                                  <option value="DIBOL">DIBOL</option>
-                                                  <option value="Dog">Dog</option>
-                                                  <option value="Draco">Draco</option>
-                                                  <option value="DAX(Data Analysis Expressions)">DAX(Data Analysis Expressions)</option>
-                                                  <option value="ECMAScript">ECMAScript</option>
-                                                  <option value="Emacs Lisp">Emacs Lisp</option>
-                                                  <option value="Emarald">Emarald</option>
-                                                  <option value="Erlang">Erlang</option>
-                                                  <option value="Euclid">Euclid</option>
-                                                  <option value="ES">ES</option>
-                                                  <option value="ES6+">ES6+</option>
-                                                  <option value="F">F</option>
-                                                  <option value="F#">F#</option>
-                                                  <option value="Fortran">Fortran</option>
-                                                  <option value="GAMS">GAMS</option>
-                                                  <option value="GAP">GAP</option>
-                                                  <option value="GDScript">GDScript</option>
-                                                  <option value="Go">Go</option>
-                                                  <option value="Google Apps Script">Google Apps Script</option>
-                                                  <option value="Groovy">Groovy</option>
-                                                  <option value="GraphQL">GraphQL</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
-                                                  <option value="Zabbiz">Zabbiz</option>
+                                                  {% for skill in skill_sets %}
+                                                  {% if skill in request.user.devskillset.skill_sets.all %}
+                                                  <option selected value="{{skill.id}}">{{skill}}</option>
+                                                  {% else %}
+                                                  <option value="{{skill.id}}">{{skill}}</option>
+                                                  {% endif %}
+                                                  {% endfor %}
                                                 </select>
                                                 <p> Remove skills by deleting tags.</p>
                                               </div>
@@ -795,7 +463,7 @@
             </div>
           </div>
         </div>
-
+        <!-- Employment History -->
         <div class="page-body mt-3">
           <div class="row">
             <div class="col-lg-12 col-xl-12">
@@ -861,7 +529,7 @@
             </div>
           </div>
         </div>
-
+        <!-- Certificates -->
         <div class="page-body mt-3">
           <div class="row">
             <div class="col-lg-12 col-xl-12">
@@ -925,7 +593,7 @@
             </div>
           </div>
         </div>
-
+        <!-- Other Experiences -->
         <div class="page-body mt-3">
           <div class="row">
             <div class="col-lg-12 col-xl-12">
@@ -933,7 +601,7 @@
                 <div class="card">
                   <div class="card-header">
                     <h5>Other Experiences</h5>
-                    <i style="font-size: x-large;" class="float-right fa fa-plus-circle"></i>
+                    <i data-toggle="modal" data-target="#experience-modal" style="font-size: x-large;" class="float-right fa fa-plus-circle"></i>
                     <div class="row mt-3">
                       <div style="align-content: center;align-items: center;width: 100%;" class="mt-3">
                         {% if not request.user.otherexperience_set.exists %}
@@ -978,6 +646,71 @@
             </div>
           </div>
         </div>
+        <!-- Add Other Experience Modal -->
+        <div
+        class="modal fade"
+        id="experience-modal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="modalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Other Experiences</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+              </button>
+              </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-material">
+                    <div class="right-icon-control">
+                      <form
+                        method="POST"
+                        class="form-material"
+                        action="{% url 'add_other_experience' request.user.username %}"
+                      >
+                        {% csrf_token %}
+                        <div
+                          class="form-group form-primary"
+                        >
+                        <label for="subject">Subject</label>
+                        {{form.subject}}                       
+                        </div>
+                        <div
+                          class="form-group form-primary"
+                        >
+                        <!-- <label for="description">Subject</label> -->
+                        {{form.description}}
+                        </div>
+                        <div class="modal-footer">
+                          <button
+                            type="submit"
+                            class="save_btn btn btn-primary"
+                          >
+                            Save
+                          </button>
+                          <button
+                            type="button"
+                            class="btn btn-default close_btn"
+                            data-dismiss="modal"
+                          >
+                            Close
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
       </div>
     </div>
   </div>

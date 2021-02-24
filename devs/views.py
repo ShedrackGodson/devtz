@@ -1,11 +1,12 @@
 from django.contrib.auth.forms import AdminPasswordChangeForm, PasswordChangeForm
-from django.contrib.auth import authenticate, update_session_auth_hash
+from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
+from devs.forms import AddOtherExperienceForm
 from social_django.models import UserSocialAuth
 from django.shortcuts import redirect, render
-from devs.models import Dev, EmailPreference, PublicPreference
+from devs.models import Dev, EmailPreference, PublicPreference, SkillSet
 from django.contrib import messages
 
 
@@ -201,6 +202,27 @@ def stacks(request):
 @login_required
 def profile(request, username):
     context = dict()
+    context["skill_sets"] = SkillSet.objects.all()
+    context["form"] = AddOtherExperienceForm()
 
     return render(request, "devs/profile.html", context)
 
+
+@login_required
+@csrf_exempt
+def add_other_experience(request, username):
+    if request.method == "POST":
+        form = AddOtherExperienceForm(request.POST)
+        try:
+            dev = Dev.objects.get(username=username)
+            if form.is_valid():
+                form.save(commit=False, dev=dev)
+                form.save(commit=True, dev=dev)
+                messages.success(request, "Experience added.")
+            else:
+                messages.error(request, "Something went wrong.")
+                print(form.errors)
+        except Exception as e:
+            print(e)
+            messages.error(request, "Something went wrong.")
+        return redirect("profile", dev.username)

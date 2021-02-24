@@ -3,7 +3,8 @@ from devs.views import (
     index, settings, password, change_password,
     delete_account, social_auths, preferences,
     save_dev_preference,email_notifications,
-    save_email_preference,stacks, profile
+    save_email_preference,stacks, profile,
+    add_other_experience
 )
 
 
@@ -21,5 +22,6 @@ urlpatterns = [
     path('settings/stacks/', stacks, name='stacks'),
     # Profile
     path('devs/@<str:username>/', profile, name='profile'),
+    path('devs/@<str:username>/add/', add_other_experience, name='add_other_experience'),
 ]
 
