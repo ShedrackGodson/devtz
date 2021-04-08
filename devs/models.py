@@ -97,6 +97,7 @@ class Availability(models.Model):
         ("more", "More than 30 hrs/week"),
         ("les", "Less than 30 hrs/week"),
         ("open", "As needed - open to offers"),
+        ("not", "Not Available"),
     })
 
     def __str__(self):
@@ -179,12 +180,12 @@ class DevCertificates(models.Model):
     dev = ForeignKey(Dev, on_delete=models.CASCADE)
     certificate_name = models.CharField(max_length=50)
     provider = models.CharField(max_length=50)
-    description = RichTextField(max_length=255, null=True, blank=True)
+    description = models.TextField(max_length=255, null=True, blank=True)
     issue_date = models.DateField()
     expiration = models.DateField(null=True, blank=True)
     certificate_id = models.CharField(max_length=100,
                                       null=True, blank=True)
-    certificate_url = models.CharField(max_length=100,
+    certificate_url = models.URLField(max_length=100,
                                        null=True, blank=True)
 
     def __str__(self):

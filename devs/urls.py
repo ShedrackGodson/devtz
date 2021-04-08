@@ -5,7 +5,8 @@ from devs.views import (
     save_dev_preference, email_notifications,
     save_email_preference, stacks, profile,
     add_other_experience, delete_other_experience,
-    update_other_experience
+    update_other_experience, add_certificate,
+    save_availability
 )
 
 
@@ -34,4 +35,8 @@ urlpatterns = [
          delete_other_experience, name='delete_other_experience'),
     path('devs/<int:experience_id>/@<str:dev_username>/update/',
          update_other_experience, name='update_other_experience'),
+    path('devs/@<str:dev_username>/add/',
+         add_certificate, name='add_certificate'),
+    path('devs/@<str:dev_username>/availability/save/',
+         save_availability, name='save_availability'),
 ]

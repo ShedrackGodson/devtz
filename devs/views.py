@@ -3,10 +3,10 @@ from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
-from devs.forms import AddOtherExperienceForm
+from devs.forms import AddCertificateForm, AddOtherExperienceForm
 from social_django.models import UserSocialAuth
 from django.shortcuts import redirect, render
-from devs.models import Dev, EmailPreference, OtherExperience, PublicPreference, SkillSet
+from devs.models import Availability, Dev, DevCertificates, EmailPreference, OtherExperience, PublicPreference, SkillSet
 from django.contrib import messages
 
 
@@ -204,6 +204,13 @@ def profile(request, username):
     context = dict()
     context["skill_sets"] = SkillSet.objects.all()
     context["form"] = AddOtherExperienceForm()
+    context["certificate_form"] = AddCertificateForm()
+    context["availabilities"] = {
+        "more": "More than 30 hrs/week",
+        "less": "Less than 30 hrs/week",
+        "open": "As needed - open to offers",
+        "not": "Not Available"
+    }
 
     return render(request, "devs/profile.html", context)
 
@@ -260,4 +267,46 @@ def update_other_experience(request, experience_id, dev_username):
     except:
         messages.error(request, "Something went wrong.")
     return redirect("profile", dev.username)
+
+
+@login_required
+@csrf_exempt
+def add_certificate(request, username):
+    if request.method == "POST":
+        try:
+            DevCertificates.objects.create(
+                dev=Dev.objects.get(username=username),
+                certificate_name=request.POST.get("certificate_name"),
+                provider=request.POST.get("provider"),
+                description=request.POST.get("description"),
+                issue_date=request.POST.get("issue_date"),
+                expiration=request.POST.get("expiration"),
+                certificate_id=request.POST.get("certificate_id"),
+                certificate_url=request.POST.get("certificate_url")
+            )
+            messages.success(request, "Certificate added.")
+        except Exception as e:
+            print(e)
+            messages.error(request, "Something went wrong.")
+        return redirect("profile", username)
+
+
+@login_required
+@csrf_exempt
+def save_availability(request, dev_username):
+    try:
+        object = Availability.objects.get(
+            dev__username=dev_username
+        )
+        availability = request.POST.get("availability")
+        object.days_available = availability
+        if availability == "not":
+            object.available = False
+        else:
+            object.available = True
+        object.save()
+        messages.success(request, "Status changed.")
+    except Availability.DoesNotExist:
+        pass
+    return redirect("profile", dev_username)
 
