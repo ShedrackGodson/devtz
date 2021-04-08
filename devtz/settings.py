@@ -8,12 +8,13 @@ from django.urls import conf
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+# SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = "=rh@w3f1pq#%fu@r+rskc$78_grro(lra=ot$4q^mv+#cl(0bs"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["devtz.herokuapp.com/"]
 
 
 # Application definition
